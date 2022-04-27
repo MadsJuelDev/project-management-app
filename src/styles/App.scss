@@ -553,6 +553,7 @@ header {
     .add-task__main {
       @include mq("900px") {
         width: 90%;
+        left: 50%;
       }
 
       overflow: visible;
@@ -561,11 +562,12 @@ header {
       border-radius: 5px;
       background-color: white;
       position: absolute;
-      left: 50%;
-      top: 50%;
+      left: 62.5%;
+      top: 8.7%;
       padding: 20px 30px;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
+      width: 550px;
 
       .header {
         font-size: 13px;
@@ -579,8 +581,8 @@ header {
       color: gray;
       float: right;
       font-weight: bold;
-      font-size: 12px;
-      margin-top: 10px;
+      font-size: 18px;
+      margin-top: 5px;
     }
   }
 

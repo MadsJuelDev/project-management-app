@@ -1,6 +1,6 @@
 import { useProjectsValue, useSelectedProjectValue } from "../context";
 import { useState } from "react";
-import { IndividualProject } from "./layout/IndividualProject";
+import { IndividualProject } from "./IndividualProject";
 
 export const Projects = ({ activeValue = null }) => {
   const [active, setActive] = useState(activeValue);

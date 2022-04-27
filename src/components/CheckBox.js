@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 
 export const CheckBox = ({ id }) => {
   const archiveTask = () => {
-    firebase.firestore().collection("tasks").doc(id).update({
+    firebase.firestore().collection("Tasks").doc(id).update({
       archived: true,
     });
   };
