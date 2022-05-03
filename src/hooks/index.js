@@ -1,76 +1,101 @@
 import { useState, useEffect } from "react";
-import { firebase } from "../firebase";
-import { collatedTasksExists } from "../helpers";
+import axios from "axios";
+import { useSelectedProjectValue } from "../context";
 import moment from "moment";
 
 export const useTasks = (selectedProject) => {
-  const [tasks, setTasks] = useState([]);
+  let [tasks, setTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
 
   useEffect(() => {
-    let unsubscribe = firebase
-      .firestore()
-      .collection("Tasks")
-      .where("userId", "==", "1234abc");
+    axios.get("api/tasks/1234abc/false/" + selectedProject).then((res) => {
+      const newTasks = res.data;
 
-    unsubscribe =
-      selectedProject && !collatedTasksExists(selectedProject)
-        ? (unsubscribe = unsubscribe.where("projectId", "==", selectedProject))
-        : selectedProject === "TODAY"
-        ? (unsubscribe = unsubscribe.where(
-            "date",
-            "==",
-            moment().format("DD/MM/YYYY")
-          ))
-        : selectedProject === "INBOX" || selectedProject === 0
-        ? (unsubscribe = unsubscribe.where("date", "==", ""))
-        : unsubscribe;
-
-    unsubscribe = unsubscribe.onSnapshot((snapshot) => {
-      const newTasks = snapshot.docs.map((task) => ({
-        id: task.id,
-        ...task.data(),
-      }));
-
-      setTasks(
-        selectedProject === "NEXT_7"
-          ? newTasks.filter(
-              (task) =>
-                moment(task.date, "DD-MM-YYYY").diff(moment(), "days") <= 7 &&
-                task.archived !== true
-            )
-          : newTasks.filter((task) => task.archived !== true)
-      );
-
+      if (JSON.stringify(newTasks) !== JSON.stringify(tasks)) {
+        setTasks(newTasks);
+      }
       setArchivedTasks(newTasks.filter((task) => task.archived !== false));
     });
-
-    return () => unsubscribe();
   }, [selectedProject]);
 
   return { tasks, archivedTasks };
+};
+
+export const useAllTasks = () => {
+  let [allTasks, setAllTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
+
+  useEffect(() => {
+    axios.get("api/tasks/1234abc/false/").then((res) => {
+      const newAllTasks = res.data;
+
+      if (JSON.stringify(newAllTasks) !== JSON.stringify(allTasks)) {
+        setAllTasks(newAllTasks);
+      }
+      setArchivedTasks(newAllTasks.filter((task) => task.archived !== false));
+    });
+  }, []);
+
+  return { allTasks, archivedTasks };
+};
+
+export const useNextSevenTasks = () => {
+  let [nextSevenTasks, setNextSevenTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
+
+  // Elequent Date hack
+  let date = moment().format("DD-MM-YYYY");
+  let nextSevenish = moment(date, "DD-MM-YYYY").add(8, "days");
+  let finalNext = moment(nextSevenish).format("DD-MM-YYYY");
+
+  useEffect(() => {
+    axios.get("api/nextweek/1234abc/false/" + finalNext).then((res) => {
+      const newNextSevenTasks = res.data;
+      if (
+        JSON.stringify(newNextSevenTasks) !== JSON.stringify(nextSevenTasks)
+      ) {
+        setNextSevenTasks(newNextSevenTasks);
+      }
+      setArchivedTasks(
+        newNextSevenTasks.filter((task) => task.archived !== false)
+      );
+    });
+  }, []);
+  return { nextSevenTasks, archivedTasks };
+};
+
+export const useTodayTasks = () => {
+  let [todayTasks, setTodayTasks] = useState([]);
+  const [archivedTasks, setArchivedTasks] = useState([]);
+
+  // Elequent Date hack
+  let date = moment().format("DD-MM-YYYY");
+  let nextSevenish = moment(date, "DD-MM-YYYY").add(1, "days");
+  let finalNext = moment(nextSevenish).format("DD-MM-YYYY");
+
+  useEffect(() => {
+    axios.get("api/nextweek/1234abc/false/" + finalNext).then((res) => {
+      const newTodayTasks = res.data;
+      if (JSON.stringify(newTodayTasks) !== JSON.stringify(todayTasks)) {
+        setTodayTasks(newTodayTasks);
+      }
+      setArchivedTasks(newTodayTasks.filter((task) => task.archived !== false));
+    });
+  }, []);
+  return { todayTasks, archivedTasks };
 };
 
 export const useProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("Projects")
-      .where("userId", "==", "1234abc")
-      .orderBy("projectId")
-      .get()
-      .then((snapshot) => {
-        const allProjects = snapshot.docs.map((project) => ({
-          ...project.data(),
-          docId: project.id,
-        }));
+    axios.get("api/projects/userId/1234abc").then((res) => {
+      const allProjects = res.data;
 
-        if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
-          setProjects(allProjects);
-        }
-      });
+      if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+        setProjects(allProjects);
+      }
+    });
   }, [projects]);
 
   return { projects, setProjects };

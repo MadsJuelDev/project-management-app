@@ -13,7 +13,7 @@ export const AddTask = ({
   setShowQuickAddTask,
 }) => {
   const [task, setTask] = useState("");
-  const [taskDate, setTaskDate] = useState("");
+  const [taskDate, setTaskDate] = useState(moment().format("DD/MM/YYYY"));
   const [project, setProject] = useState("");
   const [showMain, setShowMain] = useState(shouldShowMain);
   const [showProjectOverlay, setShowProjectOverlay] = useState(false);
@@ -21,35 +21,60 @@ export const AddTask = ({
 
   const { selectedProject } = useSelectedProjectValue();
 
-  const addTask = () => {
+  const addTask = async () => {
     const projectId = project || selectedProject;
-    let collatedDate = "";
+    // let collatedDate = "";
 
-    if (projectId === "TODAY") {
-      collatedDate = moment().format("DD/MM/YYYY");
-    } else if (projectId === "NEXT_7") {
-      collatedDate = moment().add(7, "days").format("DD/MM/YYYY");
+    // if (projectId === "TODAY") {
+    //   collatedDate = moment().format("DD/MM/YYYY");
+    // } else if (projectId === "NEXT_7") {
+    //   collatedDate = moment().add(7, "days").format("DD/MM/YYYY");
+    // }
+
+    // let TheDate = moment().format("DD/MM/YYYY");
+    // setTaskDate(TheDate);
+
+    const res = await fetch("/api/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        archived: false,
+        projectId,
+        task,
+        date: taskDate,
+        userId: "1234abc",
+      }),
+    });
+    if (res.status === 500 || !res) {
+      window.alert("status 500: error boi!");
+    } else {
+      setTask("");
+      setProject("");
+      setShowMain("");
+      setShowProjectOverlay(false);
     }
-    return (
-      task &&
-      projectId &&
-      firebase
-        .firestore()
-        .collection("Tasks")
-        .add({
-          archived: false,
-          projectId,
-          task,
-          date: collatedDate || taskDate,
-          userId: "1234abc",
-        })
-        .then(() => {
-          setTask("");
-          setProject("");
-          setShowMain("");
-          setShowProjectOverlay(false);
-        })
-    );
+    // return (
+    //   task &&
+    //   projectId &&
+    //   firebase
+    //     .firestore()
+    //     .collection("Tasks")
+    //     .add({
+    // archived: false,
+    // projectId,
+    // task,
+    // date: collatedDate || taskDate,
+    // userId: "1234abc",
+    //     })
+    //     .then(() => {
+    // setTask("");
+    // setProject("");
+    // setShowMain("");
+    // setShowProjectOverlay(false);
+    //     })
+    // );
   };
 
   return (

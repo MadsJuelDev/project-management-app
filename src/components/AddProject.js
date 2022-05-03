@@ -1,4 +1,4 @@
-import { firebase } from "../firebase";
+// import { firebase } from "../firebase";
 import { generatePushId } from "../helpers";
 import { useProjectsValue } from "../context";
 import { useState } from "react";
@@ -10,21 +10,40 @@ export const AddProject = ({ shouldShow = false }) => {
   const projectId = generatePushId();
   const { setProjects } = useProjectsValue();
 
-  const addProject = () =>
-    projectName &&
-    firebase
-      .firestore()
-      .collection("Projects")
-      .add({
+  const addProject = async () => {
+    const res = await fetch("/api/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         projectId,
         name: "🦙 " + projectName,
         userId: "1234abc",
-      })
-      .then(() => {
-        setProjects([]);
-        setProjectName("");
-        setShow(false);
-      });
+      }),
+    });
+    if (res.status === 400 || !res) {
+      window.alert("Project Name already Exists!");
+    } else {
+      setProjects([]);
+      setProjectName("");
+      setShow(false);
+    }
+  };
+  // projectName &&
+  // firebase
+  //   .firestore()
+  //   .collection("Projects")
+  //   .add({
+  //     projectId,
+  //     name: "🦙 " + projectName,
+  //     userId: "1234abc",
+  //   })
+  //   .then(() => {
+  //     setProjects([]);
+  //     setProjectName("");
+  //     setShow(false);
+  //   });
 
   return (
     <div className="add-project" data-testid="add-project">
