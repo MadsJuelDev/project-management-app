@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
-import moment from "moment";
-import { firebase } from "../firebase";
 import { useSelectedProjectValue } from "../context";
 import { ProjectOverlay } from "./ProjectOverlay";
 import { TaskDate } from "./TaskDate";
@@ -13,7 +11,7 @@ export const AddTask = ({
   setShowQuickAddTask,
 }) => {
   const [task, setTask] = useState("");
-  const [taskDate, setTaskDate] = useState(moment().format("DD/MM/YYYY"));
+  const [taskDate, setTaskDate] = useState("");
   const [project, setProject] = useState("");
   const [showMain, setShowMain] = useState(shouldShowMain);
   const [showProjectOverlay, setShowProjectOverlay] = useState(false);
@@ -23,16 +21,6 @@ export const AddTask = ({
 
   const addTask = async () => {
     const projectId = project || selectedProject;
-    // let collatedDate = "";
-
-    // if (projectId === "TODAY") {
-    //   collatedDate = moment().format("DD/MM/YYYY");
-    // } else if (projectId === "NEXT_7") {
-    //   collatedDate = moment().add(7, "days").format("DD/MM/YYYY");
-    // }
-
-    // let TheDate = moment().format("DD/MM/YYYY");
-    // setTaskDate(TheDate);
 
     const res = await fetch("/api/tasks", {
       method: "POST",
@@ -55,26 +43,6 @@ export const AddTask = ({
       setShowMain("");
       setShowProjectOverlay(false);
     }
-    // return (
-    //   task &&
-    //   projectId &&
-    //   firebase
-    //     .firestore()
-    //     .collection("Tasks")
-    //     .add({
-    // archived: false,
-    // projectId,
-    // task,
-    // date: collatedDate || taskDate,
-    // userId: "1234abc",
-    //     })
-    //     .then(() => {
-    // setTask("");
-    // setProject("");
-    // setShowMain("");
-    // setShowProjectOverlay(false);
-    //     })
-    // );
   };
 
   return (

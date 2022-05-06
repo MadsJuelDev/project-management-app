@@ -43,13 +43,8 @@ export const useNextSevenTasks = () => {
   let [nextSevenTasks, setNextSevenTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
 
-  // Elequent Date hack
-  let date = moment().format("DD-MM-YYYY");
-  let nextSevenish = moment(date, "DD-MM-YYYY").add(8, "days");
-  let finalNext = moment(nextSevenish).format("DD-MM-YYYY");
-
   useEffect(() => {
-    axios.get("api/nextweek/1234abc/false/" + finalNext).then((res) => {
+    axios.get("api/nextweek/nextSeven/1234abc/false/").then((res) => {
       const newNextSevenTasks = res.data;
       if (
         JSON.stringify(newNextSevenTasks) !== JSON.stringify(nextSevenTasks)
@@ -68,13 +63,8 @@ export const useTodayTasks = () => {
   let [todayTasks, setTodayTasks] = useState([]);
   const [archivedTasks, setArchivedTasks] = useState([]);
 
-  // Elequent Date hack
-  let date = moment().format("DD-MM-YYYY");
-  let nextSevenish = moment(date, "DD-MM-YYYY").add(1, "days");
-  let finalNext = moment(nextSevenish).format("DD-MM-YYYY");
-
   useEffect(() => {
-    axios.get("api/nextweek/1234abc/false/" + finalNext).then((res) => {
+    axios.get("api/nextweek/today/1234abc/false/").then((res) => {
       const newTodayTasks = res.data;
       if (JSON.stringify(newTodayTasks) !== JSON.stringify(todayTasks)) {
         setTodayTasks(newTodayTasks);

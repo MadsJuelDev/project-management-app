@@ -10,9 +10,10 @@ import { collatedTasks } from "../constants";
 import { getTitle, getCollatedTitle, collatedTasksExists } from "../helpers";
 import { useSelectedProjectValue, useProjectsValue } from "../context";
 import { AddTask } from "./AddTask";
-import moment from "moment";
 
-export const Tasks = () => {
+export const Tasks = (props) => {
+  const { status, moveTask } = props;
+
   const { selectedProject } = useSelectedProjectValue();
   const { projects } = useProjectsValue();
   const { tasks } = useTasks(selectedProject);
@@ -28,14 +29,6 @@ export const Tasks = () => {
   if (collatedTasksExists(selectedProject) && selectedProject) {
     projectName = getCollatedTitle(collatedTasks, selectedProject).name;
   }
-
-  // inboxTasks = tasks.find((task) => (task.date = currentDate));
-  // console.log(inboxTasks);
-
-  // console.log(
-  //   "date filter",
-  //   tasks.find((task) => (task.date = currentDate))
-  // );
 
   useEffect(() => {
     document.title = `${projectName}: LaMa Project`;
