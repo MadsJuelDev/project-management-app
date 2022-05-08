@@ -18,13 +18,12 @@ export const Content = () => {
   function loadTasksFromLocalStorage() {
     ///
   }
-
   return (
     <section className="content">
       <Sidebar />
       <Tasks moveTask={moveTask} status="To Do" />
-      <Tasks moveTask={moveTask} status="Doing" />
-      <Tasks moveTask={moveTask} status="Done" />
+      {/* <Tasks moveTask={moveTask} status="Doing" />
+      <Tasks moveTask={moveTask} status="Done" /> */}
     </section>
   );
 };

@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelectedProjectValue } from "../context";
-import moment from "moment";
 
 export const useTasks = (selectedProject) => {
   let [tasks, setTasks] = useState([]);
@@ -10,13 +8,14 @@ export const useTasks = (selectedProject) => {
   useEffect(() => {
     axios.get("api/tasks/1234abc/false/" + selectedProject).then((res) => {
       const newTasks = res.data;
-
+      
       if (JSON.stringify(newTasks) !== JSON.stringify(tasks)) {
         setTasks(newTasks);
       }
       setArchivedTasks(newTasks.filter((task) => task.archived !== false));
     });
-  }, [selectedProject]);
+    
+  });
 
   return { tasks, archivedTasks };
 };
