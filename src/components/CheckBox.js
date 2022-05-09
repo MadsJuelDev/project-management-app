@@ -1,4 +1,3 @@
-import firebase from "firebase/compat/app";
 import axios from "axios";
 
 export const CheckBox = ({ id }) => {

@@ -1,6 +1,7 @@
 import { Sidebar } from "./Sidebar";
-import { Tasks } from "../Tasks";
+// import { Tasks } from "../Tasks";
 import { useEffect, useState } from "react";
+import { StatusLine } from "../StatusLine";
 
 export const Content = () => {
   useEffect(() => {
@@ -21,7 +22,8 @@ export const Content = () => {
   return (
     <section className="content">
       <Sidebar />
-      <Tasks moveTask={moveTask} status="To Do" />
+      <StatusLine />
+      {/* <Tasks moveTask={moveTask} status="To Do" /> */}
       {/* <Tasks moveTask={moveTask} status="Doing" />
       <Tasks moveTask={moveTask} status="Done" /> */}
     </section>

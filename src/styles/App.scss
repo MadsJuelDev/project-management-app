@@ -466,9 +466,29 @@ header {
   margin: auto;
 }
 
+/* Statusline
+  ============================================ */
+  .StatusLine {
+    display:flex;
+    flex-direction: column;
+    column-count: 3;
+  }
+  .todo {
+    width: 33%;
+  }
+  .doing {
+    width: 33%;
+  }
+  .done {
+    width: 33%;
+  }
+
 /* Tasks
   ============================================ */
 .tasks {
+  display:flex;
+  flex-direction: row;
+  
   width: 656px;
   background-color: white;
   margin-left: 266px;
