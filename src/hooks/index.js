@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
+// All async axios get requests to the API
 const getProjectTasks = async (selectedProject) => {
   const { data } = await axios.get(
     `api/tasks/1234abc/false/${selectedProject}`
@@ -12,7 +13,16 @@ const getAllTasks = async () => {
   const { data } = await axios.get("api/tasks/1234abc/false/");
   return data;
 };
+const getNextSeven = async () => {
+  const { data } = await axios.get("api/nextweek/nextSeven/1234abc/false/");
+  return data;
+};
+const getTodaysTasks = async () => {
+  const { data } = await axios.get("api/nextweek/today/1234abc/false/");
+  return data;
+};
 
+// React-query componentes that can be re-used in though out the Tree
 export const useTasks = (selectedProject) => {
   return useQuery(
     ["fetchProjectTasksAPI", selectedProject],
@@ -22,100 +32,39 @@ export const useTasks = (selectedProject) => {
       refetchInterval: 500,
     }
   );
-  //
-  //
-  //
-  //
-  // console.log(selectedProject);
-  // const { isLoading, data, refetch } = useQuery(
-  //   "fetchProjectTasksAPI",
-  //    () => {
-  //     return axios.get(`api/tasks/1234abc/false/${selectedProject}`);
-  //   },
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     refetchInterval: 100,
-  //     enabled: false, // (!) handle refetchs manually
-  //   }
-  // );
-  // console.log(data);
-  // return { data, isLoading, refetch };
-  //
-  //
-  //
-  //
-  // let [tasks, setTasks] = useState([]);
-  // const [archivedTasks, setArchivedTasks] = useState([]);
-  // useEffect(() => {
-  //   axios.get("api/tasks/1234abc/false/" + selectedProject).then((res) => {
-  //     const newTasks = res.data;
-  //     if (JSON.stringify(newTasks) !== JSON.stringify(tasks)) {
-  //       setTasks(newTasks);
-  //     }
-  //     setArchivedTasks(newTasks.filter((task) => task.archived !== false));
-  //   });
-  // }, []);
-  // return { tasks, archivedTasks };
 };
 
 export const useAllTasks = () => {
   return useQuery("fetchAllTasksAPI", getAllTasks, {
+    cacheTime: 0,
     refetchInterval: 500,
   });
-
-  // let [allTasks, setAllTasks] = useState([]);
-  // const [archivedTasks, setArchivedTasks] = useState([]);
-  // useEffect(() => {
-  //   axios.get("api/tasks/1234abc/false/").then((res) => {
-  //     const newAllTasks = res.data;
-  //     if (JSON.stringify(newAllTasks) !== JSON.stringify(allTasks)) {
-  //       setAllTasks(newAllTasks);
-  //     }
-  //     setArchivedTasks(newAllTasks.filter((task) => task.archived !== false));
-  //   });
-  // }, []);
-  // return { allTasks, archivedTasks };
 };
 
 export const useNextSevenTasks = () => {
-  let [nextSevenTasks, setNextSevenTasks] = useState([]);
-  const [archivedTasks, setArchivedTasks] = useState([]);
-
-  useEffect(() => {
-    axios.get("api/nextweek/nextSeven/1234abc/false/").then((res) => {
-      const newNextSevenTasks = res.data;
-      if (
-        JSON.stringify(newNextSevenTasks) !== JSON.stringify(nextSevenTasks)
-      ) {
-        setNextSevenTasks(newNextSevenTasks);
-      }
-      setArchivedTasks(
-        newNextSevenTasks.filter((task) => task.archived !== false)
-      );
-    });
-  }, []);
-  return { nextSevenTasks, archivedTasks };
+  return useQuery("fetchNextSevenAPI", getNextSeven, {
+    cacheTime: 0,
+    refetchInterval: 500,
+  });
 };
 
 export const useTodayTasks = () => {
-  let [todayTasks, setTodayTasks] = useState([]);
-  const [archivedTasks, setArchivedTasks] = useState([]);
-
-  useEffect(() => {
-    axios.get("api/nextweek/today/1234abc/false/").then((res) => {
-      const newTodayTasks = res.data;
-      if (JSON.stringify(newTodayTasks) !== JSON.stringify(todayTasks)) {
-        setTodayTasks(newTodayTasks);
-      }
-      setArchivedTasks(newTodayTasks.filter((task) => task.archived !== false));
-    });
-  }, []);
-  return { todayTasks, archivedTasks };
+  return useQuery("fetchTodayTasksAPI", getTodaysTasks, {
+    cacheTime: 0,
+    refetchInterval: 500,
+  });
 };
 
 export const useProjects = () => {
-  const { data } = useQuery("fetchProjectsAPI", () => {
-    return axios.get("api/projects/userId/1234abc");
-  });
+  const { data } = useQuery(
+    "fetchProjectsAPI",
+    () => {
+      return axios.get("api/projects/userId/1234abc");
+    },
+    {
+      cacheTime: 0,
+      refetchInterval: 500,
+    }
+  );
   return { data };
 };

@@ -28,8 +28,8 @@ export const Tasks = (props) => {
   // const { projects } = useProjectsValue();
   const { data: tasks, isLoading } = useTasks(selectedProject);
   const { data: allTasks } = useAllTasks();
-  const { nextSevenTasks } = useNextSevenTasks();
-  const { todayTasks } = useTodayTasks();
+  const { data: nextSevenTasks } = useNextSevenTasks();
+  const { data: todayTasks } = useTodayTasks();
 
   useEffect(() => {
     document.title = `${projectName}: LaMa Project`;
