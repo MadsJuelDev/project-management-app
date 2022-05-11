@@ -1,4 +1,4 @@
-import { useProjectsValue } from "../context";
+// import { useProjectsValue } from "../context";
 
 export const ProjectOverlay = ({
   setProject,
@@ -17,7 +17,7 @@ export const ProjectOverlay = ({
               key={project.projectId}
               data-testid="project-overlay-action"
               onClick={() => {
-                setProject(project.projectId);
+                // setProject(project.projectId);
                 setShowProjectOverlay(false);
               }}
             >

@@ -1,23 +1,13 @@
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
-import { useProjectsValue, useSelectedProjectValue } from "../context";
-import firebase from "firebase/compat/app";
 import axios from "axios";
 
 export const IndividualProject = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
-  const { projects, setProjects } = useProjectsValue();
-  const { setSelectedProject } = useSelectedProjectValue();
 
   const deleteProject = (id) => {
-    // firebase
-    //   .firestore()
-    //   .collection("Projects")
-    //   .doc(docId)
-    //   .delete()
     axios.delete("api/projects/" + project.id).then(() => {
-      setProjects([...projects]);
-      setSelectedProject("INBOX");
+      console.log("Project has been deleted.");
     });
   };
 

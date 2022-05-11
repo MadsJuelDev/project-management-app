@@ -473,12 +473,15 @@ header {
   background-color: white;
   margin-left: 266px;
   border-right: $generic-border;
-  min-height: calc(100vh);
+  height: 100vh;
   vertical-align: top;
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 80px;
   padding-bottom: 84px;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
 
   @include mq("900px") {
     margin-left: 0;
@@ -532,6 +535,10 @@ header {
       }
     }
   }
+}
+
+.tasks::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 
 /* Add Task

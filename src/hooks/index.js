@@ -1,41 +1,80 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useQuery } from "react-query";
+
+const getProjectTasks = async (selectedProject) => {
+  const { data } = await axios.get(
+    `api/tasks/1234abc/false/${selectedProject}`
+  );
+  return data;
+};
+const getAllTasks = async () => {
+  const { data } = await axios.get("api/tasks/1234abc/false/");
+  return data;
+};
 
 export const useTasks = (selectedProject) => {
-  let [tasks, setTasks] = useState([]);
-  const [archivedTasks, setArchivedTasks] = useState([]);
-
-  useEffect(() => {
-    axios.get("api/tasks/1234abc/false/" + selectedProject).then((res) => {
-      const newTasks = res.data;
-      
-      if (JSON.stringify(newTasks) !== JSON.stringify(tasks)) {
-        setTasks(newTasks);
-      }
-      setArchivedTasks(newTasks.filter((task) => task.archived !== false));
-    });
-    
-  });
-
-  return { tasks, archivedTasks };
+  return useQuery(
+    ["fetchProjectTasksAPI", selectedProject],
+    () => getProjectTasks(selectedProject),
+    {
+      cacheTime: 0,
+      refetchInterval: 500,
+    }
+  );
+  //
+  //
+  //
+  //
+  // console.log(selectedProject);
+  // const { isLoading, data, refetch } = useQuery(
+  //   "fetchProjectTasksAPI",
+  //    () => {
+  //     return axios.get(`api/tasks/1234abc/false/${selectedProject}`);
+  //   },
+  //   {
+  //     refetchOnWindowFocus: true,
+  //     refetchInterval: 100,
+  //     enabled: false, // (!) handle refetchs manually
+  //   }
+  // );
+  // console.log(data);
+  // return { data, isLoading, refetch };
+  //
+  //
+  //
+  //
+  // let [tasks, setTasks] = useState([]);
+  // const [archivedTasks, setArchivedTasks] = useState([]);
+  // useEffect(() => {
+  //   axios.get("api/tasks/1234abc/false/" + selectedProject).then((res) => {
+  //     const newTasks = res.data;
+  //     if (JSON.stringify(newTasks) !== JSON.stringify(tasks)) {
+  //       setTasks(newTasks);
+  //     }
+  //     setArchivedTasks(newTasks.filter((task) => task.archived !== false));
+  //   });
+  // }, []);
+  // return { tasks, archivedTasks };
 };
 
 export const useAllTasks = () => {
-  let [allTasks, setAllTasks] = useState([]);
-  const [archivedTasks, setArchivedTasks] = useState([]);
+  return useQuery("fetchAllTasksAPI", getAllTasks, {
+    refetchInterval: 500,
+  });
 
-  useEffect(() => {
-    axios.get("api/tasks/1234abc/false/").then((res) => {
-      const newAllTasks = res.data;
-
-      if (JSON.stringify(newAllTasks) !== JSON.stringify(allTasks)) {
-        setAllTasks(newAllTasks);
-      }
-      setArchivedTasks(newAllTasks.filter((task) => task.archived !== false));
-    });
-  }, []);
-
-  return { allTasks, archivedTasks };
+  // let [allTasks, setAllTasks] = useState([]);
+  // const [archivedTasks, setArchivedTasks] = useState([]);
+  // useEffect(() => {
+  //   axios.get("api/tasks/1234abc/false/").then((res) => {
+  //     const newAllTasks = res.data;
+  //     if (JSON.stringify(newAllTasks) !== JSON.stringify(allTasks)) {
+  //       setAllTasks(newAllTasks);
+  //     }
+  //     setArchivedTasks(newAllTasks.filter((task) => task.archived !== false));
+  //   });
+  // }, []);
+  // return { allTasks, archivedTasks };
 };
 
 export const useNextSevenTasks = () => {
@@ -75,17 +114,8 @@ export const useTodayTasks = () => {
 };
 
 export const useProjects = () => {
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    axios.get("api/projects/userId/1234abc").then((res) => {
-      const allProjects = res.data;
-
-      if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
-        setProjects(allProjects);
-      }
-    });
-  }, [projects]);
-
-  return { projects, setProjects };
+  const { data } = useQuery("fetchProjectsAPI", () => {
+    return axios.get("api/projects/userId/1234abc");
+  });
+  return { data };
 };
