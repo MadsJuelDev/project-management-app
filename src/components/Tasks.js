@@ -110,6 +110,10 @@ export const Tasks = (props) => {
   } else {
     return (
       <div className="tasks" data-testid="tasks">
+        <div class="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
         <h2 data-testid="project-name"> Loading.. </h2>
       </div>
     );
