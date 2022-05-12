@@ -1,6 +1,7 @@
 import { Sidebar } from "./Sidebar";
 import { Tasks } from "../Tasks";
 import { useEffect, useState } from "react";
+import { LogFormComponent } from "../FormComponent";
 
 export const Content = () => {
   useEffect(() => {

@@ -40,7 +40,6 @@ export const Tasks = (props) => {
       return (
         <div className="tasks" data-testid="tasks">
           <h2 data-testid="project-name"> {projectName} </h2>
-
           <ul className="tasks__list">
             {allTasks?.map((task) => (
               <li key={`${task.id}`}>
@@ -110,7 +109,7 @@ export const Tasks = (props) => {
   } else {
     return (
       <div className="tasks" data-testid="tasks">
-        <div class="lds-ripple">
+        <div className="lds-ripple">
           <div></div>
           <div></div>
         </div>
