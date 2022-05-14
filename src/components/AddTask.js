@@ -9,6 +9,7 @@ export const AddTask = ({
   shouldShowMain = false,
   showQuickAddTask,
   setShowQuickAddTask,
+  status,
 }) => {
   const [task, setTask] = useState("");
   const [taskDate, setTaskDate] = useState("");
@@ -29,6 +30,10 @@ export const AddTask = ({
       },
       body: JSON.stringify({
         archived: false,
+        isCollapsed: "true",
+        description: "",
+        urgency: "",
+        status: status,
         projectId,
         task,
         date: taskDate,

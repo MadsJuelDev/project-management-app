@@ -20,8 +20,8 @@ export const App = ({ darkModeDefault = false }) => {
           className={darkMode ? "darkmode" : undefined}
         >
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Content darkMode={darkMode} setDarkMode={setDarkMode} />
-          {/* <FullPageContent /> */}
+          {/* <Content darkMode={darkMode} setDarkMode={setDarkMode} /> */}
+          <FullPageContent />
         </main>
         {/* </ProjectsProvider> */}
       </SelectedProjectProvider>

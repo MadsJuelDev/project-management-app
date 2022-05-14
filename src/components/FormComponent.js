@@ -243,55 +243,159 @@ const Text = styled.div`
 export const LogFormComponent = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+
+  // SIGNUP TIME BABY!!
+  const [user, setuser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  //handle Inputes
+  const handleInput = (event) => {
+    let username = event.target.name;
+    let value = event.target.value;
+
+    setuser({ ...user, [username]: value });
+  };
+
+  //handle Submitities
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { username, email, password } = user;
+    try {
+      //Using Proxy instead of the deafult port 3000 to access the API hehe
+
+      const res = await fetch("/api/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
+      if (res.status === 400 || !res) {
+        window.alert("Email already in use!");
+      } else {
+        window.alert("Registered Successfully");
+        setClick(!click);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //LOGIN TIME BABY!
+  const [loginUser, setLoginUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLoginChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    setLoginUser({ ...loginUser, [name]: value });
+  };
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    const { email, password } = user;
+    try {
+      //Using Proxy instead of the deafult port 3000 to access the API hehe
+
+      const res = await fetch("/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }).then((res) => {
+        for (let entry of res.headers) {
+          // <-- response header iterable
+          sessionStorage.setItem(entry[0], entry[1]);
+          console.log(entry[0], entry[1]);
+        }
+
+        return res.json();
+      });
+      if (res.status === 400 || !res) {
+        window.alert("Wrong email or password");
+      } else {
+        window.alert("Logged In Successfully");
+        // window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const result = JSON.parse(sessionStorage.getItem("data"));
+  console.log(result);
   return (
     <>
       {" "}
       <BackgroundBox clicked={click}>
         <ButtonAnimate clicked={click} onClick={handleClick}></ButtonAnimate>
 
-        <Form className="signin">
+        <Form className="signin" onSubmit={handleLoginSubmit} method="POST">
           <Title>Log In</Title>
           <Input
-            type="email"
+            type="text"
+            placeholder="E-mail"
             name="email"
-            id="userEmailId"
-            placeholder="Email"
+            value={user.email}
+            onChange={handleLoginChange}
           />
           <Input
             type="password"
-            name="password"
-            id="userPasswordId"
             placeholder="Password"
+            name="password"
+            value={user.password}
+            onChange={handleLoginChange}
           />
           <Link href="#">Forgot Your Password?</Link>
-          <Button>Log In</Button>
+          <Button type="submit" value="login">
+            Log In
+          </Button>
         </Form>
 
-        <Form className="signup">
+        <Form className="signup" onSubmit={handleSubmit} method="POST">
           <Title>Sign Up</Title>
           <Input
             type="text"
-            name="username"
-            id="usernameId"
             placeholder="Username"
+            name="username"
+            value={user.username}
+            onChange={handleInput}
           />
 
           <Input
             type="email"
+            placeholder="E-mail"
             name="email"
-            id="userEmailId"
-            placeholder="Email"
+            value={user.email}
+            onChange={handleInput}
           />
           <Input
             type="password"
-            name="password"
-            id="UserpasswordId"
             placeholder="Password"
+            name="password"
+            value={user.password}
+            onChange={handleInput}
           />
           <Link href="#" onClick={handleClick}>
             Already have an Account?
           </Link>
-          <Button>Sign Up</Button>
+          <Button type="submit" value="login">
+            Sign Up
+          </Button>
         </Form>
 
         <Text className="text1" clicked={click}>
@@ -299,7 +403,7 @@ export const LogFormComponent = () => {
           Don't have an account?
           <br />
           <span style={{ fontSize: 32 }} className="attention">
-            Click on Emoji
+            Click on LaMa
           </span>
           <span className="attention-icon">⤶</span>
         </Text>
@@ -309,7 +413,7 @@ export const LogFormComponent = () => {
           Already have an account?
           <br />
           <span style={{ fontSize: 32 }} className="attention">
-            Click on Emoji
+            Click on LaMa
           </span>
           <span className="attention-icon">⤷</span>
         </Text>
