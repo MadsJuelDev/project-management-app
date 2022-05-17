@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
+import { useProjects } from "../hooks";
+import { useUserContextValue } from "../context";
 
 export const IndividualProject = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
+  const { userAuth } = useUserContextValue();
+  const { refetch: projectUpdater } = useProjects(userAuth);
 
   const deleteProject = (id) => {
     axios.delete("api/projects/" + project.id).then(() => {
       console.log("Project has been deleted.");
     });
+  };
+
+  const handleClick = () => {
+    projectUpdater();
   };
 
   return (
@@ -25,7 +33,13 @@ export const IndividualProject = ({ project }) => {
           <div className="project-delete-modal">
             <div className="project-delete-modal__inner">
               <p>Wanna Delete this Lama Project?</p>
-              <button type="button" onClick={() => deleteProject(project.id)}>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteProject(project.id);
+                  handleClick();
+                }}
+              >
                 Kill Lama
               </button>
               <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>

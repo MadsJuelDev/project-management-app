@@ -8,11 +8,13 @@ import {
 import { Projects } from "../Projects";
 import { useSelectedProjectValue } from "../../context";
 import { AddProject } from "../AddProject";
+import { useUserContextValue } from "../../context";
 
 export const Sidebar = () => {
   const { setSelectedProject } = useSelectedProjectValue();
   const [active, setActive] = useState("inbox");
   const [showProjects, setShowProjects] = useState(true);
+  const { userAuth } = useUserContextValue();
 
   return (
     <div className="sidebar" data-testid="sidebar">
@@ -69,7 +71,7 @@ export const Sidebar = () => {
         <h2>Projects</h2>
       </div>
       <ul className="sidebar__projects">{showProjects && <Projects />}</ul>
-      {showProjects && <AddProject />}
+      {showProjects && <AddProject userAuth={userAuth} />}
     </div>
   );
 };

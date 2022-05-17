@@ -10,6 +10,12 @@ import {
   useSelectedInboxValue,
 } from "./selected-inbox-context";
 
+import {
+  UserContext,
+  UserContextProvider,
+  useUserContextValue,
+} from "./user-context";
+
 export {
   SelectedProjectContext,
   SelectedProjectProvider,
@@ -17,4 +23,7 @@ export {
   SelectedInboxContext,
   SelectedInboxProvider,
   useSelectedInboxValue,
+  UserContext,
+  UserContextProvider,
+  useUserContextValue,
 };

@@ -1,12 +1,18 @@
 // import { firebase } from "../firebase";
 import { generatePushId } from "../helpers";
 import { useState } from "react";
+import { useProjects } from "../hooks";
 
-export const AddProject = ({ shouldShow = false }) => {
+export const AddProject = ({ shouldShow = false, userAuth }) => {
   const [show, setShow] = useState(shouldShow);
   const [projectName, setProjectName] = useState("");
+  const { refetch: projectUpdater } = useProjects(userAuth);
 
   const projectId = generatePushId();
+
+  const handleClick = () => {
+    projectUpdater();
+  };
 
   const addProject = async () => {
     const res = await fetch("/api/projects", {
@@ -17,7 +23,7 @@ export const AddProject = ({ shouldShow = false }) => {
       body: JSON.stringify({
         projectId,
         name: "🦙 " + projectName,
-        userId: "1234abc",
+        userId: userAuth,
       }),
     });
     if (res.status === 400 || !res) {
@@ -42,7 +48,10 @@ export const AddProject = ({ shouldShow = false }) => {
           <button
             className="add-project__submit"
             type="button"
-            onClick={() => addProject()}
+            onClick={() => {
+              addProject();
+              handleClick();
+            }}
             data-testid="add-project-submit"
           >
             Add LaMa Project

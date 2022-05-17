@@ -8,28 +8,35 @@ import {
 import { CheckBox } from "./CheckBox";
 import { collatedTasks } from "../constants";
 import { getTitle, getCollatedTitle, collatedTasksExists } from "../helpers";
-import { useSelectedProjectValue } from "../context";
+import { useSelectedProjectValue, useUserContextValue } from "../context";
 import { AddTask } from "./AddTask";
 import { useProjects } from "../hooks";
 import { IndividualTask } from "./IndividualTask";
 
 export const Tasks = ({ status }) => {
-  const { data: projects } = useProjects();
+  const { userAuth } = useUserContextValue();
+  const { data: projects } = useProjects(userAuth);
   const { selectedProject } = useSelectedProjectValue();
+
   let projectName = "";
 
   if (projects && selectedProject && !collatedTasksExists(selectedProject)) {
-    projectName = getTitle(projects.data, selectedProject).name;
+    try {
+      projectName = getTitle(projects.data, selectedProject)?.name;
+    } catch (error) {
+      projectName = "INBOX";
+    }
+    // projectName = getTitle(projects.data, selectedProject)?.name;
   }
   if (collatedTasksExists(selectedProject) && selectedProject) {
     projectName = getCollatedTitle(collatedTasks, selectedProject).name;
   }
 
   // const { projects } = useProjectsValue();
-  const { data: tasks, isLoading } = useTasks(selectedProject);
-  const { data: allTasks } = useAllTasks();
-  const { data: nextSevenTasks } = useNextSevenTasks();
-  const { data: todayTasks } = useTodayTasks();
+  const { data: tasks, isLoading } = useTasks(selectedProject, userAuth);
+  const { data: allTasks } = useAllTasks(userAuth);
+  const { data: nextSevenTasks } = useNextSevenTasks(userAuth);
+  const { data: todayTasks } = useTodayTasks(userAuth);
   // starting movable by status here
 
   let tasksForStatus = tasks?.filter((task) => {

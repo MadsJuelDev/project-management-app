@@ -3,30 +3,30 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 // All async axios get requests to the API
-const getProjectTasks = async (selectedProject) => {
+const getProjectTasks = async (selectedProject, userAuth) => {
   const { data } = await axios.get(
-    `api/tasks/1234abc/false/${selectedProject}`
+    `api/tasks/${userAuth}/false/${selectedProject}`
   );
   return data;
 };
-const getAllTasks = async () => {
-  const { data } = await axios.get("api/tasks/1234abc/false/");
+const getAllTasks = async (userAuth) => {
+  const { data } = await axios.get(`api/tasks/${userAuth}/false/`);
   return data;
 };
-const getNextSeven = async () => {
-  const { data } = await axios.get("api/nextweek/nextSeven/1234abc/false/");
+const getNextSeven = async (userAuth) => {
+  const { data } = await axios.get(`api/nextweek/nextSeven/${userAuth}/false/`);
   return data;
 };
-const getTodaysTasks = async () => {
-  const { data } = await axios.get("api/nextweek/today/1234abc/false/");
+const getTodaysTasks = async (userAuth) => {
+  const { data } = await axios.get(`api/nextweek/today/${userAuth}/false/`);
   return data;
 };
 
 // React-query componentes that can be re-used in though out the Tree
-export const useTasks = (selectedProject) => {
+export const useTasks = (selectedProject, userAuth) => {
   return useQuery(
-    ["fetchProjectTasksAPI", selectedProject],
-    () => getProjectTasks(selectedProject),
+    ["fetchProjectTasksAPI", selectedProject, userAuth],
+    () => getProjectTasks(selectedProject, userAuth),
     {
       cacheTime: 0,
       refetchInterval: 500,
@@ -34,37 +34,40 @@ export const useTasks = (selectedProject) => {
   );
 };
 
-export const useAllTasks = () => {
-  return useQuery("fetchAllTasksAPI", getAllTasks, {
+export const useAllTasks = (userAuth) => {
+  return useQuery("fetchAllTasksAPI", () => getAllTasks(userAuth), {
     cacheTime: 0,
     refetchInterval: 500,
   });
 };
 
-export const useNextSevenTasks = () => {
-  return useQuery("fetchNextSevenAPI", getNextSeven, {
+export const useNextSevenTasks = (userAuth) => {
+  return useQuery("fetchNextSevenAPI", () => getNextSeven(userAuth), {
     cacheTime: 0,
     refetchInterval: 500,
   });
 };
 
-export const useTodayTasks = () => {
-  return useQuery("fetchTodayTasksAPI", getTodaysTasks, {
+export const useTodayTasks = (userAuth) => {
+  return useQuery("fetchTodayTasksAPI", () => getTodaysTasks(userAuth), {
     cacheTime: 0,
     refetchInterval: 500,
   });
 };
 
-export const useProjects = () => {
-  const { data } = useQuery(
-    "fetchProjectsAPI",
+export const useProjects = (userAuth) => {
+  const { data, refetch } = useQuery(
+    ["fetchProjectsAPI", userAuth],
     () => {
-      return axios.get("api/projects/userId/1234abc");
+      let token = sessionStorage.getItem("auth-token");
+      return axios.get(`api/projects/userId/${userAuth}`, {
+        headers: { authtoken: `${token}` },
+      });
     },
     {
       cacheTime: 0,
-      refetchInterval: 500,
+      refetchInterval: 60000,
     }
   );
-  return { data };
+  return { data, refetch };
 };

@@ -3,19 +3,25 @@ import { Tasks } from "../Tasks";
 import { useEffect, useState } from "react";
 import { collatedTasks } from "../../constants";
 import { getTitle, collatedTasksExists } from "../../helpers";
-import { useSelectedProjectValue } from "../../context";
+import { useSelectedProjectValue, useUserContextValue } from "../../context";
 import { useProjects } from "../../hooks";
 
 export const Content = () => {
   const { selectedProject } = useSelectedProjectValue();
-  const { data: projects } = useProjects();
+  const { userAuth, setUserAuth } = useUserContextValue();
+  const { data: projects } = useProjects(userAuth);
+  let savedUser = localStorage.getItem("username");
   let projectName = selectedProject;
   if (projects && selectedProject && !collatedTasksExists(selectedProject)) {
-    projectName = getTitle(projects.data, selectedProject).name;
+    try {
+      projectName = getTitle(projects.data, selectedProject)?.name;
+    } catch (error) {
+      projectName = "INBOX";
+    }
   }
-
   useEffect(() => {
     console.log("using effect");
+    setUserAuth(savedUser);
   }, []);
 
   return (

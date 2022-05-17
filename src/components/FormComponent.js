@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { useUserContextValue } from "../context";
 
 const move = keyframes`
 0%{
@@ -243,6 +245,7 @@ const Text = styled.div`
 export const LogFormComponent = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
+  const { setUserAuth, userAuth } = useUserContextValue();
 
   // SIGNUP TIME BABY!!
   const [user, setuser] = useState({
@@ -279,6 +282,9 @@ export const LogFormComponent = () => {
       });
       if (res.status === 400 || !res) {
         window.alert("Email already in use!");
+      }
+      if (res.status === 418 || !res) {
+        window.alert("Username already in use!");
       } else {
         window.alert("Registered Successfully");
         setClick(!click);
@@ -290,7 +296,7 @@ export const LogFormComponent = () => {
 
   //LOGIN TIME BABY!
   const [loginUser, setLoginUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -303,7 +309,8 @@ export const LogFormComponent = () => {
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = user;
+    const { username, password } = loginUser;
+
     try {
       //Using Proxy instead of the deafult port 3000 to access the API hehe
 
@@ -313,22 +320,25 @@ export const LogFormComponent = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          username,
           password,
         }),
       }).then((res) => {
         for (let entry of res.headers) {
           // <-- response header iterable
           sessionStorage.setItem(entry[0], entry[1]);
-          console.log(entry[0], entry[1]);
         }
 
         return res.json();
       });
       if (res.status === 400 || !res) {
-        window.alert("Wrong email or password");
+        window.alert("Wrong username or password");
       } else {
+        setUserAuth(username);
+        localStorage.setItem("username", username);
+        console.log(userAuth);
         window.alert("Logged In Successfully");
+
         // window.location.reload();
       }
     } catch (error) {
@@ -336,8 +346,8 @@ export const LogFormComponent = () => {
     }
   };
 
-  const result = JSON.parse(sessionStorage.getItem("data"));
-  console.log(result);
+  // const result = JSON.parse(sessionStorage.getItem("data"));
+  // console.log(result);
   return (
     <>
       {" "}
@@ -348,19 +358,18 @@ export const LogFormComponent = () => {
           <Title>Log In</Title>
           <Input
             type="text"
-            placeholder="E-mail"
-            name="email"
-            value={user.email}
+            placeholder="Username"
+            name="username"
+            value={loginUser.username}
             onChange={handleLoginChange}
           />
           <Input
             type="password"
             placeholder="Password"
             name="password"
-            value={user.password}
+            value={loginUser.password}
             onChange={handleLoginChange}
           />
-          <Link href="#">Forgot Your Password?</Link>
           <Button type="submit" value="login">
             Log In
           </Button>

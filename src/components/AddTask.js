@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaRegListAlt, FaRegCalendarAlt } from "react-icons/fa";
-import { useSelectedProjectValue } from "../context";
+import { useSelectedProjectValue, useUserContextValue } from "../context";
 import { ProjectOverlay } from "./ProjectOverlay";
 import { TaskDate } from "./TaskDate";
 
@@ -19,6 +19,7 @@ export const AddTask = ({
   const [showTaskDate, setShowTaskDate] = useState(false);
 
   const { selectedProject } = useSelectedProjectValue();
+  const { userAuth } = useUserContextValue();
 
   const addTask = async () => {
     const projectId = project || selectedProject;
@@ -37,7 +38,7 @@ export const AddTask = ({
         projectId,
         task,
         date: taskDate,
-        userId: "1234abc",
+        userId: userAuth,
       }),
     });
     if (res.status === 500 || !res) {
