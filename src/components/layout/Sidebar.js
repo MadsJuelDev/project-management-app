@@ -6,6 +6,7 @@ import {
   FaRegCalendar,
 } from "react-icons/fa";
 import { Projects } from "../Projects";
+import { CollabProjects } from "../CollabProjects";
 import { useSelectedProjectValue } from "../../context";
 import { AddProject } from "../AddProject";
 import { useUserContextValue } from "../../context";
@@ -14,6 +15,7 @@ export const Sidebar = () => {
   const { setSelectedProject } = useSelectedProjectValue();
   const [active, setActive] = useState("inbox");
   const [showProjects, setShowProjects] = useState(true);
+  const [showCollabProjects, setShowCollabProjects] = useState(true);
   const { userAuth } = useUserContextValue();
 
   return (
@@ -72,6 +74,20 @@ export const Sidebar = () => {
       </div>
       <ul className="sidebar__projects">{showProjects && <Projects />}</ul>
       {showProjects && <AddProject userAuth={userAuth} />}
+      <div
+        className="sidebar__middle"
+        onClick={() => setShowCollabProjects(!showCollabProjects)}
+      >
+        <span>
+          <FaChevronDown
+            className={!showCollabProjects ? "hidden-projects" : undefined}
+          />
+        </span>
+        <h2>Collab Projects</h2>
+      </div>
+      <ul className="sidebar__projects">
+        {showCollabProjects && <CollabProjects />}
+      </ul>
     </div>
   );
 };

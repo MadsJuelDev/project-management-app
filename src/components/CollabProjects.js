@@ -1,9 +1,9 @@
 import { useSelectedProjectValue, useUserContextValue } from "../context";
 import { useState } from "react";
-import { IndividualProject } from "./IndividualProject";
-import { useProjects, useTasks } from "../hooks";
+import { IndividualCollabProject } from "./IndividualCollabProject";
+import { useCollabProjects, useTasks } from "../hooks";
 
-export const Projects = ({ activeValue = null }) => {
+export const CollabProjects = ({ activeValue = null }) => {
   const [active, setActive] = useState(activeValue);
   const { setSelectedProject, selectedProject } = useSelectedProjectValue();
   const { userAuth } = useUserContextValue();
@@ -12,7 +12,7 @@ export const Projects = ({ activeValue = null }) => {
     refetch: projectUpdater,
     data: projects,
     isLoading,
-  } = useProjects(userAuth);
+  } = useCollabProjects(userAuth);
   const { refetch: taskUpdater } = useTasks(selectedProject);
 
   const handleClick = () => {
@@ -38,7 +38,7 @@ export const Projects = ({ activeValue = null }) => {
             handleClick();
           }}
         >
-          <IndividualProject project={project} />
+          <IndividualCollabProject project={project} />
         </li>
       ))
     );

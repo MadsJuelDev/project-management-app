@@ -4,9 +4,16 @@ import {
   useNextSevenTasks,
   useTodayTasks,
   useProjects,
+  useCollabProjects,
+  useAllProjects,
 } from "./getHooks";
 
-import { moveTask, updateTask, updateCollapsed } from "./putHooks";
+import {
+  moveTask,
+  updateTask,
+  updateCollapsed,
+  updateProjectCollabList,
+} from "./putHooks";
 
 export {
   useTasks,
@@ -14,7 +21,10 @@ export {
   useNextSevenTasks,
   useTodayTasks,
   useProjects,
+  useCollabProjects,
+  useAllProjects,
   moveTask,
   updateTask,
   updateCollapsed,
+  updateProjectCollabList,
 };

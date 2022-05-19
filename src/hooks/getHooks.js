@@ -54,13 +54,46 @@ export const useTodayTasks = (userAuth) => {
     refetchInterval: 500,
   });
 };
+export const useCollabProjects = (userAuth) => {
+  const { data, refetch } = useQuery(
+    ["fetchCollabProjectsAPI", userAuth],
+    async () => {
+      let token = sessionStorage.getItem("auth-token");
+      return await axios.get(`api/projects/collab/${userAuth}`, {
+        headers: { authtoken: `${token}` },
+      });
+    },
+    {
+      cacheTime: 0,
+      refetchInterval: 60000,
+    }
+  );
+  return { data, refetch };
+};
+
+export const useAllProjects = (userAuth) => {
+  const { data, refetch } = useQuery(
+    ["fetchAllProjectsAPI", userAuth],
+    async () => {
+      let token = sessionStorage.getItem("auth-token");
+      return await axios.get(`api/projects/all/${userAuth}`, {
+        headers: { authtoken: `${token}` },
+      });
+    },
+    {
+      cacheTime: 0,
+      refetchInterval: 60000,
+    }
+  );
+  return { data, refetch };
+};
 
 export const useProjects = (userAuth) => {
   const { data, refetch } = useQuery(
     ["fetchProjectsAPI", userAuth],
-    () => {
+    async () => {
       let token = sessionStorage.getItem("auth-token");
-      return axios.get(`api/projects/userId/${userAuth}`, {
+      return await axios.get(`api/projects/userId/${userAuth}`, {
         headers: { authtoken: `${token}` },
       });
     },

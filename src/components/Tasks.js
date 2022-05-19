@@ -5,17 +5,17 @@ import {
   useNextSevenTasks,
   useTodayTasks,
 } from "../hooks";
-import { CheckBox } from "./CheckBox";
 import { collatedTasks } from "../constants";
 import { getTitle, getCollatedTitle, collatedTasksExists } from "../helpers";
 import { useSelectedProjectValue, useUserContextValue } from "../context";
 import { AddTask } from "./AddTask";
-import { useProjects } from "../hooks";
+import { useProjects, useCollabProjects } from "../hooks";
 import { IndividualTask } from "./IndividualTask";
 
 export const Tasks = ({ status }) => {
   const { userAuth } = useUserContextValue();
   const { data: projects } = useProjects(userAuth);
+  const { data: collabProjects } = useCollabProjects(userAuth);
   const { selectedProject } = useSelectedProjectValue();
 
   let projectName = "";
@@ -23,6 +23,9 @@ export const Tasks = ({ status }) => {
   if (projects && selectedProject && !collatedTasksExists(selectedProject)) {
     try {
       projectName = getTitle(projects.data, selectedProject)?.name;
+      if (!projectName) {
+        projectName = getTitle(collabProjects.data, selectedProject)?.name;
+      }
     } catch (error) {
       projectName = "INBOX";
     }
@@ -42,6 +45,15 @@ export const Tasks = ({ status }) => {
   let tasksForStatus = tasks?.filter((task) => {
     return task.status === status;
   });
+  let allTasksForStatus = allTasks?.filter((task) => {
+    return task.status === status;
+  });
+  let nextSevenTasksForStatus = nextSevenTasks?.filter((task) => {
+    return task.status === status;
+  });
+  let todayTasksForStatus = todayTasks?.filter((task) => {
+    return task.status === status;
+  });
 
   useEffect(() => {
     document.title = `${projectName}: LaMa Project`;
@@ -50,55 +62,46 @@ export const Tasks = ({ status }) => {
   if (!isLoading) {
     if (selectedProject == "INBOX") {
       return (
-        <div className="tasks" data-testid="tasks">
-          <h2 data-testid="project-name">{projectName}</h2>
+        <>
+          <h2 data-testid="project-name">{status}</h2>
           <ul className="tasks__list">
-            {allTasks?.map((task) => (
-              <li key={`${task.id}`}>
-                <CheckBox id={task.id} />
-                <span>{task.task}</span>
-              </li>
+            {allTasksForStatus?.map((task) => (
+              <IndividualTask key={task.id} task={task} status={status} />
             ))}
           </ul>
 
           <AddTask status={status} />
-        </div>
+        </>
       );
     }
     if (selectedProject == "TODAY") {
       return (
-        <div className="tasks" data-testid="tasks">
-          <h2 data-testid="project-name"> {projectName} </h2>
+        <>
+          <h2 data-testid="project-name"> {status} </h2>
 
           <ul className="tasks__list">
-            {todayTasks?.map((task) => (
-              <li key={`${task.id}`}>
-                <CheckBox id={task.id} />
-                <span>{task.task}</span>
-              </li>
+            {todayTasksForStatus?.map((task) => (
+              <IndividualTask key={task.id} task={task} status={status} />
             ))}
           </ul>
 
           <AddTask status={status} />
-        </div>
+        </>
       );
     }
     if (selectedProject == "NEXT_7") {
       return (
-        <div className="tasks" data-testid="tasks">
-          <h2 data-testid="project-name"> {projectName} </h2>
+        <>
+          <h2 data-testid="project-name"> {status} </h2>
 
           <ul className="tasks__list">
-            {nextSevenTasks?.map((task) => (
-              <li key={`${task.id}`}>
-                <CheckBox id={task.id} />
-                <span>{task.task}</span>
-              </li>
+            {nextSevenTasksForStatus?.map((task) => (
+              <IndividualTask key={task.id} task={task} status={status} />
             ))}
           </ul>
 
           <AddTask status={status} />
-        </div>
+        </>
       );
     } else {
       return (

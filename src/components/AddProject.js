@@ -1,6 +1,6 @@
 // import { firebase } from "../firebase";
 import { generatePushId } from "../helpers";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProjects } from "../hooks";
 
 export const AddProject = ({ shouldShow = false, userAuth }) => {
@@ -24,12 +24,17 @@ export const AddProject = ({ shouldShow = false, userAuth }) => {
         projectId,
         name: "🦙 " + projectName,
         userId: userAuth,
+        collabIdOne: "",
+        collabIdTwo: "",
+        collabIdThree: "",
+        collabIdFour: "",
       }),
     });
     if (res.status === 400 || !res) {
       window.alert("Project Name already Exists!");
     } else {
       setShow(false);
+      projectUpdater();
     }
   };
 

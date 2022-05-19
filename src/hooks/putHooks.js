@@ -46,3 +46,29 @@ export const updateCollapsed = (id) => {
     }
   });
 };
+
+export const updateProjectCollabList = (
+  id,
+  collabIdOne,
+  collabIdTwo,
+  collabIdThree,
+  collabIdFour
+) => {
+  axios
+    .put("api/projects/" + id, {
+      collabIdOne: collabIdOne,
+      collabIdTwo: collabIdTwo,
+      collabIdThree: collabIdThree,
+      collabIdFour: collabIdFour,
+    })
+    .then((res) => {
+      if (res.status === 404) {
+        window.alert(res.message);
+      }
+      if (res.status === 500) {
+        window.alert(res.message);
+      } else {
+        console.log("project updated succesfully baby");
+      }
+    });
+};

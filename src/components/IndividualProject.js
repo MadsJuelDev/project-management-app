@@ -17,6 +17,11 @@ export const IndividualProject = ({ project }) => {
 
   const handleClick = () => {
     projectUpdater();
+    refreshPage();
+  };
+
+  const refreshPage = () => {
+    window.location.reload(false);
   };
 
   return (
