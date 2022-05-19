@@ -505,8 +505,6 @@ header {
   background-color: #1c1c1cb5;
   height: 80vh;
   vertical-align: top;
-  padding-left: 40px;
-  padding-right: 40px;
   padding-top: 80px;
   padding-bottom: 84px;
   margin-top: 100px;
@@ -610,7 +608,7 @@ header {
       margin-bottom: 20px;
       margin-top: 55px;
       border-radius: 5px;
-      background-color: white;
+      background-color: rgba(37, 37, 37);
       position: absolute;
       left: 62.5%;
       top: 8.7%;
@@ -1033,16 +1031,36 @@ header {
   }
 }
 
+/* Task Top Modifier
+  ============================================ */
 .taskstop {
   flex-direction: row;
   display: flex;
   justify-content: center;
-  border-bottom: solid 10px;
+
   margin-bottom: 50px;
 
   & svg {
     font-size: 50px;
   }
+}
+
+.tasktop_border {
+  border-bottom: solid 10px;
+}
+
+.task__padding {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.task__hr {
+  border: solid 1px rgba(255, 255, 255, 0.3);
+  margin-bottom: 50px;
+}
+
+.task__h2__bottom {
+  padding-bottom: 30px;
 }
 
 /* Add Collab
@@ -1065,9 +1083,54 @@ header {
     align-items: center;
 
     .collab__main {
-      background-color: red;
+      background-color: rgb(37, 37, 37);
+      border-radius: 15px;
       height: 500px;
       width: 266px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+  h2 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+  }
+  &__input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    input {
+      width: 80%;
+      border: 1px solid #ddd;
+      background-color: white !important;
+      border-radius: 3px;
+      height: 35px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    label {
+      margin-left: 28px;
+      margin-bottom: 5px;
+    }
+  }
+  &__add {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      @include btn("10px");
+    }
+    span {
+      padding-top: 10px;
     }
   }
 }

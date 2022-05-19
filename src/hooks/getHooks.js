@@ -82,7 +82,7 @@ export const useAllProjects = (userAuth) => {
     },
     {
       cacheTime: 0,
-      refetchInterval: 60000,
+      refetchInterval: 500,
     }
   );
   return { data, refetch };
