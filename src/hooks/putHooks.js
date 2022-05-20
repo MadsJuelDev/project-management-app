@@ -1,27 +1,43 @@
 import axios from "axios";
 
 export const moveTask = (id, newStatus) => {
-  axios.put("api/tasks/" + id, { status: newStatus }).then((res) => {
-    if (res.status === 404) {
-      window.alert(res.message);
-    }
-    if (res.status === 500) {
-      window.alert(res.message);
-    } else {
-      console.log("task moved succesfully baby");
-    }
-  });
+  let token = sessionStorage.getItem("authtoken");
+  axios
+    .put(
+      "https://heroku-lama-api.herokuapp.com/api/tasks/" + id,
+      { status: newStatus },
+      {
+        headers: { authtoken: `${token}` },
+      }
+    )
+    .then((res) => {
+      if (res.status === 404) {
+        window.alert(res.message);
+      }
+      if (res.status === 500) {
+        window.alert(res.message);
+      } else {
+        console.log("task moved succesfully baby");
+      }
+    });
 };
 
 export const updateTask = (id, task, description, urgency, status) => {
+  let token = sessionStorage.getItem("authtoken");
   axios
-    .put("api/tasks/" + id, {
-      task: task,
-      description: description,
-      urgency: urgency,
-      status: status,
-      isCollapsed: true,
-    })
+    .put(
+      "https://heroku-lama-api.herokuapp.com/api/tasks/" + id,
+      {
+        task: task,
+        description: description,
+        urgency: urgency,
+        status: status,
+        isCollapsed: true,
+      },
+      {
+        headers: { authtoken: `${token}` },
+      }
+    )
     .then((res) => {
       if (res.status === 404) {
         window.alert(res.message);
@@ -35,16 +51,25 @@ export const updateTask = (id, task, description, urgency, status) => {
 };
 
 export const updateCollapsed = (id) => {
-  axios.put("api/tasks/" + id, { isCollapsed: false }).then((res) => {
-    if (res.status === 404) {
-      window.alert(res.message);
-    }
-    if (res.status === 500) {
-      window.alert(res.message);
-    } else {
-      console.log("task Collapsed State has been changed succesfully baby");
-    }
-  });
+  let token = sessionStorage.getItem("authtoken");
+  axios
+    .put(
+      "https://heroku-lama-api.herokuapp.com/api/tasks/" + id,
+      { isCollapsed: false },
+      {
+        headers: { authtoken: `${token}` },
+      }
+    )
+    .then((res) => {
+      if (res.status === 404) {
+        window.alert(res.message);
+      }
+      if (res.status === 500) {
+        window.alert(res.message);
+      } else {
+        console.log("task Collapsed State has been changed succesfully baby");
+      }
+    });
 };
 
 export const updateProjectCollabList = (
@@ -54,13 +79,20 @@ export const updateProjectCollabList = (
   collabIdThree,
   collabIdFour
 ) => {
+  let token = sessionStorage.getItem("authtoken");
   axios
-    .put("api/projects/" + id, {
-      collabIdOne: collabIdOne,
-      collabIdTwo: collabIdTwo,
-      collabIdThree: collabIdThree,
-      collabIdFour: collabIdFour,
-    })
+    .put(
+      "https://heroku-lama-api.herokuapp.com/api/projects/" + id,
+      {
+        collabIdOne: collabIdOne,
+        collabIdTwo: collabIdTwo,
+        collabIdThree: collabIdThree,
+        collabIdFour: collabIdFour,
+      },
+      {
+        headers: { authtoken: `${token}` },
+      }
+    )
     .then((res) => {
       if (res.status === 404) {
         window.alert(res.message);

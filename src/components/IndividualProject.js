@@ -9,19 +9,25 @@ export const IndividualProject = ({ project }) => {
   const { userAuth } = useUserContextValue();
   const { refetch: projectUpdater } = useProjects(userAuth);
 
-  const deleteProject = (id) => {
-    axios.delete("api/projects/" + project.id).then(() => {
-      console.log("Project has been deleted.");
-    });
+  const deleteProject = async () => {
+    let token = sessionStorage.getItem("authtoken");
+    console.log(token);
+    await axios
+      .delete(
+        "https://heroku-lama-api.herokuapp.com/api/projects/" + project.id,
+        {
+          headers: { authtoken: `${token}` },
+        }
+      )
+      .then(() => {
+        console.log("Project has been deleted.");
+        // using deafult (false), if set to true a SERVER side refresh is used
+        window.location.reload(false);
+      });
   };
 
   const handleClick = () => {
     projectUpdater();
-    refreshPage();
-  };
-
-  const refreshPage = () => {
-    window.location.reload(false);
   };
 
   return (

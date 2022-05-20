@@ -269,17 +269,20 @@ export const LogFormComponent = () => {
     try {
       //Using Proxy instead of the deafult port 3000 to access the API hehe
 
-      const res = await fetch("/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
-      });
+      const res = await fetch(
+        "/https://heroku-lama-api.herokuapp.com/api/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            email,
+            password,
+          }),
+        }
+      );
       if (res.status === 400 || !res) {
         window.alert("Email already in use!");
       }
@@ -314,21 +317,19 @@ export const LogFormComponent = () => {
     try {
       //Using Proxy instead of the deafult port 3000 to access the API hehe
 
-      const res = await fetch("/api/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      }).then((res) => {
-        for (let entry of res.headers) {
-          // <-- response header iterable
-          sessionStorage.setItem(entry[0], entry[1]);
+      const res = await fetch(
+        "https://heroku-lama-api.herokuapp.com/api/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
         }
-
+      ).then((res) => {
         return res.json();
       });
       if (res.status === 400 || !res) {
@@ -336,6 +337,8 @@ export const LogFormComponent = () => {
       } else {
         setUserAuth(username);
         localStorage.setItem("username", username);
+        const token = res.data.token;
+        sessionStorage.setItem("authtoken", token);
         console.log(userAuth);
         window.alert("Logged In Successfully");
 

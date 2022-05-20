@@ -23,11 +23,13 @@ export const AddTask = ({
 
   const addTask = async () => {
     const projectId = project || selectedProject;
+    let token = sessionStorage.getItem("authtoken");
 
-    const res = await fetch("/api/tasks", {
+    const res = await fetch("https://heroku-lama-api.herokuapp.com/api/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authtoken: `${token}`,
       },
       body: JSON.stringify({
         archived: false,

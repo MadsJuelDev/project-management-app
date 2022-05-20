@@ -1,24 +1,45 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 
 // All async axios get requests to the API
 const getProjectTasks = async (selectedProject, userAuth) => {
+  let token = sessionStorage.getItem("authtoken");
   const { data } = await axios.get(
-    `api/tasks/${userAuth}/false/${selectedProject}`
+    `https://heroku-lama-api.herokuapp.com/api/tasks/${userAuth}/false/${selectedProject}`,
+    {
+      headers: { authtoken: `${token}` },
+    }
   );
   return data;
 };
 const getAllTasks = async (userAuth) => {
-  const { data } = await axios.get(`api/tasks/${userAuth}/false/`);
+  let token = sessionStorage.getItem("authtoken");
+  const { data } = await axios.get(
+    `https://heroku-lama-api.herokuapp.com/api/tasks/${userAuth}/false/`,
+    {
+      headers: { authtoken: `${token}` },
+    }
+  );
   return data;
 };
 const getNextSeven = async (userAuth) => {
-  const { data } = await axios.get(`api/nextweek/nextSeven/${userAuth}/false/`);
+  let token = sessionStorage.getItem("authtoken");
+  const { data } = await axios.get(
+    `https://heroku-lama-api.herokuapp.com/api/nextweek/nextSeven/${userAuth}/false/`,
+    {
+      headers: { authtoken: `${token}` },
+    }
+  );
   return data;
 };
 const getTodaysTasks = async (userAuth) => {
-  const { data } = await axios.get(`api/nextweek/today/${userAuth}/false/`);
+  let token = sessionStorage.getItem("authtoken");
+  const { data } = await axios.get(
+    `https://heroku-lama-api.herokuapp.com/api/nextweek/today/${userAuth}/false/`,
+    {
+      headers: { authtoken: `${token}` },
+    }
+  );
   return data;
 };
 
@@ -58,10 +79,13 @@ export const useCollabProjects = (userAuth) => {
   const { data, refetch } = useQuery(
     ["fetchCollabProjectsAPI", userAuth],
     async () => {
-      let token = sessionStorage.getItem("auth-token");
-      return await axios.get(`api/projects/collab/${userAuth}`, {
-        headers: { authtoken: `${token}` },
-      });
+      let token = sessionStorage.getItem("authtoken");
+      return await axios.get(
+        `https://heroku-lama-api.herokuapp.com/api/projects/collab/${userAuth}`,
+        {
+          headers: { authtoken: `${token}` },
+        }
+      );
     },
     {
       cacheTime: 0,
@@ -75,10 +99,13 @@ export const useAllProjects = (userAuth) => {
   const { data, refetch } = useQuery(
     ["fetchAllProjectsAPI", userAuth],
     async () => {
-      let token = sessionStorage.getItem("auth-token");
-      return await axios.get(`api/projects/all/${userAuth}`, {
-        headers: { authtoken: `${token}` },
-      });
+      let token = sessionStorage.getItem("authtoken");
+      return await axios.get(
+        `https://heroku-lama-api.herokuapp.com/api/projects/all/${userAuth}`,
+        {
+          headers: { authtoken: `${token}` },
+        }
+      );
     },
     {
       cacheTime: 0,
@@ -92,10 +119,13 @@ export const useProjects = (userAuth) => {
   const { data, refetch } = useQuery(
     ["fetchProjectsAPI", userAuth],
     async () => {
-      let token = sessionStorage.getItem("auth-token");
-      return await axios.get(`api/projects/userId/${userAuth}`, {
-        headers: { authtoken: `${token}` },
-      });
+      let token = sessionStorage.getItem("authtoken");
+      return await axios.get(
+        `https://heroku-lama-api.herokuapp.com/api/projects/userId/${userAuth}`,
+        {
+          headers: { authtoken: `${token}` },
+        }
+      );
     },
     {
       cacheTime: 0,

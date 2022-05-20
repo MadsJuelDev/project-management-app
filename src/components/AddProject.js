@@ -15,21 +15,26 @@ export const AddProject = ({ shouldShow = false, userAuth }) => {
   };
 
   const addProject = async () => {
-    const res = await fetch("/api/projects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        projectId,
-        name: "🦙 " + projectName,
-        userId: userAuth,
-        collabIdOne: "",
-        collabIdTwo: "",
-        collabIdThree: "",
-        collabIdFour: "",
-      }),
-    });
+    let token = sessionStorage.getItem("authtoken");
+    const res = await fetch(
+      "https://heroku-lama-api.herokuapp.com/api/projects",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authtoken: `${token}`,
+        },
+        body: JSON.stringify({
+          projectId,
+          name: "🦙 " + projectName,
+          userId: userAuth,
+          collabIdOne: "",
+          collabIdTwo: "",
+          collabIdThree: "",
+          collabIdFour: "",
+        }),
+      }
+    );
     if (res.status === 400 || !res) {
       window.alert("Project Name already Exists!");
     } else {
