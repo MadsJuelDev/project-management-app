@@ -394,9 +394,6 @@ export const LogFormComponent = () => {
             value={user.password}
             onChange={handleInput}
           />
-          <Link href="#" onClick={handleClick}>
-            Already have an Account?
-          </Link>
           <Button type="submit" value="login">
             Sign Up
           </Button>
@@ -404,7 +401,7 @@ export const LogFormComponent = () => {
 
         <Text className="text1" clicked={click}>
           <h1 style={{ fontSize: 32 }}>Welcome!</h1>
-          Don't have an account?
+          Don't have a LaMa account?
           <br />
           <span style={{ fontSize: 32 }} className="attention">
             Click on LaMa
