@@ -44,7 +44,7 @@ export const AddTask = ({
       }),
     });
     if (res.status === 500 || !res) {
-      window.alert("status 500: error boi!");
+      window.alert(`Task requires a title!`);
     } else {
       setTask("");
       setProject("");

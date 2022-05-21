@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useUserContextValue } from "../context/user-context";
 
-import { updateProjectCollabList, useAllProjects } from "../hooks";
+import { updateProjectCollabList } from "../hooks";
 
 export const AddCollab = ({ setShowCollabers, collab }) => {
   const [formAction, setFormAction] = useState("");
+  const { userAuth } = useUserContextValue();
 
   function handleUpdateSubmit(event) {
     event.preventDefault();
@@ -64,13 +66,15 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
               />
             </div>
             <div className="collab__add">
-              <button
-                onClick={() => {
-                  setFormAction("save");
-                }}
-              >
-                Update Collaborators
-              </button>
+              {collab.userId === userAuth && (
+                <button
+                  onClick={() => {
+                    setFormAction("save");
+                  }}
+                >
+                  Update Collaborators
+                </button>
+              )}
               <span
                 className="add-project__cancel"
                 onClick={() => setShowCollabers(false)}
