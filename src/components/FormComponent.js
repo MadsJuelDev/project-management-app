@@ -326,7 +326,6 @@ export const LogFormComponent = () => {
     ).then((res) => {
       return res.json();
     });
-    console.log(res);
     if (res.error !== null || !res) {
       window.alert(res.error);
     } else {
@@ -334,7 +333,6 @@ export const LogFormComponent = () => {
       localStorage.setItem("username", username);
       const token = res.data.token;
       sessionStorage.setItem("authtoken", token);
-      console.log("Logged In");
       window.alert("Logged In Successfully");
 
       // window.location.reload();
