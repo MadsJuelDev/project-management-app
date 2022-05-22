@@ -63,7 +63,7 @@ export const IndividualTask = (props) => {
   }
 
   return (
-    <li key={`${task.id}`}>
+    <li key={`${task.id}`} data-testid="task-comp-li">
       <CheckBox id={task.id} />
       <div className={`task ${collapsed ? "collapsedTask" : ""}`}>
         <form onSubmit={handleSubmit} className={collapsed ? "collapsed" : ""}>
@@ -74,6 +74,7 @@ export const IndividualTask = (props) => {
             placeholder="Enter Title"
             disabled={collapsed}
             defaultValue={task.task}
+            data-testid="task-title-input"
           />
           <textarea
             rows="2"
@@ -81,6 +82,7 @@ export const IndividualTask = (props) => {
             name="description"
             placeholder="Enter Description"
             defaultValue={task.description}
+            data-testid="task-desc-textarea"
           />
           <div className="urgencyLabels">
             <label
@@ -91,6 +93,7 @@ export const IndividualTask = (props) => {
                 onChange={setUrgency}
                 type="radio"
                 name="urgency"
+                data-testid="low-urgency-toggle"
               />
               low
             </label>
@@ -104,6 +107,7 @@ export const IndividualTask = (props) => {
                 onChange={setUrgency}
                 type="radio"
                 name="urgency"
+                data-testid="medium-urgency-toggle"
               />
               medium
             </label>
@@ -115,6 +119,7 @@ export const IndividualTask = (props) => {
                 onChange={setUrgency}
                 type="radio"
                 name="urgency"
+                data-testid="high-urgency-toggle"
               />
               high
             </label>
@@ -124,14 +129,23 @@ export const IndividualTask = (props) => {
               setFormAction("save");
             }}
             className="button"
+            data-testid="save-task-button"
           >
             {collapsed ? "Edit" : "Save"}
           </button>
         </form>
-        <button onClick={handleMoveUp} className="button moveTask">
+        <button
+          data-testid="move-task-up"
+          onClick={handleMoveUp}
+          className="button moveTask"
+        >
           &uarr;
         </button>
-        <button onClick={handleMoveDown} className="button moveTask">
+        <button
+          data-testid="move-task-down"
+          onClick={handleMoveDown}
+          className="button moveTask"
+        >
           &darr;
         </button>
       </div>

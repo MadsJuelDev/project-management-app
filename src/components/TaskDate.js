@@ -3,7 +3,7 @@ import { FaRegPaperPlane, FaSpaceShuttle, FaSun } from "react-icons/fa";
 
 export const TaskDate = ({ setTaskDate, showTaskDate, setShowTaskDate }) =>
   showTaskDate && (
-    <div className="task-date">
+    <div className="task-date" data-testid="task-date-holder">
       <ul className="task-date__list">
         <li
           onClick={() => {

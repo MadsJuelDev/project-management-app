@@ -11,7 +11,7 @@ export const ProjectOverlay = ({
   return (
     projects &&
     showProjectOverlay && (
-      <div className="project-overlay" data-testid="project-overlay">
+      <div className="project-overlay" data-testid="project-overlay-holder">
         <ul className="project-overlay__list">
           {projects.data.map((project) => (
             <li

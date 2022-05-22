@@ -77,7 +77,7 @@ export const AddProject = ({ shouldShow = false, userAuth }) => {
       )}
       <span
         className="add-project__plus"
-        data-testid="add-project-action"
+        data-testid="add-project-action-+"
         onClick={() => setShow(!show)}
       >
         +

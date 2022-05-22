@@ -334,7 +334,7 @@ export const LogFormComponent = () => {
       localStorage.setItem("username", username);
       const token = res.data.token;
       sessionStorage.setItem("authtoken", token);
-      console.log(userAuth);
+      console.log("Logged In");
       window.alert("Logged In Successfully");
 
       // window.location.reload();
@@ -347,7 +347,11 @@ export const LogFormComponent = () => {
     <>
       {" "}
       <BackgroundBox clicked={click}>
-        <ButtonAnimate clicked={click} onClick={handleClick}></ButtonAnimate>
+        <ButtonAnimate
+          aria-label="spinning lama"
+          clicked={click}
+          onClick={handleClick}
+        ></ButtonAnimate>
 
         <Form className="signin" onSubmit={handleLoginSubmit} method="POST">
           <Title>Log In</Title>
@@ -357,6 +361,7 @@ export const LogFormComponent = () => {
             name="username"
             value={loginUser.username}
             onChange={handleLoginChange}
+            data-testid="login-username-input"
           />
           <Input
             type="password"
@@ -364,6 +369,7 @@ export const LogFormComponent = () => {
             name="password"
             value={loginUser.password}
             onChange={handleLoginChange}
+            data-testid="login-password-input"
           />
           <Button type="submit" value="login">
             Log In
@@ -378,6 +384,7 @@ export const LogFormComponent = () => {
             name="username"
             value={user.username}
             onChange={handleInput}
+            data-testid="signup-username-input"
           />
 
           <Input
@@ -386,6 +393,7 @@ export const LogFormComponent = () => {
             name="email"
             value={user.email}
             onChange={handleInput}
+            data-testid="signup-email-input"
           />
           <Input
             type="password"
@@ -393,6 +401,7 @@ export const LogFormComponent = () => {
             name="password"
             value={user.password}
             onChange={handleInput}
+            data-testid="signup-password-input"
           />
           <Button type="submit" value="login">
             Sign Up
