@@ -46,7 +46,7 @@ export const AddTask = ({
       }),
     });
     if (res.status === 500 || !res) {
-      window.alert("status 500: error boi!");
+      window.alert(`Task requires a title!`);
     } else {
       setTask("");
       setProject("");
@@ -110,7 +110,7 @@ export const AddTask = ({
           />
           <button
             type="button"
-            data-testid="add-task"
+            data-testid="add-task-button"
             className="add-task__submit"
             onClick={() =>
               showQuickAddTask

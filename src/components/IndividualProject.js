@@ -50,6 +50,7 @@ export const IndividualProject = ({ project }) => {
                   deleteProject(project.id);
                   handleClick();
                 }}
+                data-testid="delete-project-button"
               >
                 Kill Lama
               </button>

@@ -1,10 +1,6 @@
 import { Content } from "./components/layout/Content";
 import { Header } from "./components/layout/Header";
-import {
-  SelectedProjectProvider,
-  UserContextProvider,
-  useUserContextValue,
-} from "./context";
+import { SelectedProjectProvider, useUserContextValue } from "./context";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";

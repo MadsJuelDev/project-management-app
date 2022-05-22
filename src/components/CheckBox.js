@@ -35,7 +35,7 @@ export const CheckBox = ({ id }) => {
         if (e.key === "Enter") archiveTask();
       }}
     >
-      <span className="checkbox" />
+      <span aria-label="checkbox" className="checkbox" />
     </div>
   );
 };

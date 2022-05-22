@@ -14,7 +14,11 @@ export const IndividualCollabProject = ({ project }) => {
   return (
     <>
       <span className="sidebar__dot">•</span>
-      <span className="sidebar__project-name" onClick={() => handleClick()}>
+      <span
+        data-testid="specific-project-name"
+        className="sidebar__project-name"
+        onClick={() => handleClick()}
+      >
         {project.name}
       </span>
     </>

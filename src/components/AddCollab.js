@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useUserContextValue } from "../context/user-context";
 
-import { updateProjectCollabList, useAllProjects } from "../hooks";
+import { updateProjectCollabList } from "../hooks";
 
 export const AddCollab = ({ setShowCollabers, collab }) => {
   const [formAction, setFormAction] = useState("");
+  const { userAuth } = useUserContextValue();
 
   function handleUpdateSubmit(event) {
     event.preventDefault();
@@ -22,7 +24,7 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
 
   return (
     <li key={`${collab.id}`} className="collab__overlay">
-      <div className="collab collab__main" data-testid="add-task-comp">
+      <div className="collab collab__main" data-testid="add-collab-comp">
         <div>
           <h2>Collaborator Menu</h2>
 
@@ -34,6 +36,7 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
                 placeholder="Enter Username"
                 defaultValue={collab.collabIdOne}
                 name="collabIdOne"
+                data-testid="collabIdOne"
               />
             </div>
             <div className="collab__input">
@@ -43,6 +46,7 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
                 placeholder="Enter Username"
                 defaultValue={collab.collabIdTwo}
                 name="collabIdTwo"
+                data-testid="collabIdTwo"
               />
             </div>
             <div className="collab__input">
@@ -52,6 +56,7 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
                 placeholder="Enter Username"
                 defaultValue={collab.collabIdThree}
                 name="collabIdThree"
+                data-testid="collabIdThree"
               />
             </div>
             <div className="collab__input">
@@ -61,16 +66,19 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
                 placeholder="Enter Username"
                 defaultValue={collab.collabIdFour}
                 name="collabIdFour"
+                data-testid="collabIdFour"
               />
             </div>
             <div className="collab__add">
-              <button
-                onClick={() => {
-                  setFormAction("save");
-                }}
-              >
-                Update Collaborators
-              </button>
+              {collab.userId === userAuth && (
+                <button
+                  onClick={() => {
+                    setFormAction("save");
+                  }}
+                >
+                  Update Collaborators
+                </button>
+              )}
               <span
                 className="add-project__cancel"
                 onClick={() => setShowCollabers(false)}

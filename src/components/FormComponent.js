@@ -256,44 +256,40 @@ export const LogFormComponent = () => {
 
   //handle Inputes
   const handleInput = (event) => {
-    let username = event.target.name;
+    let name = event.target.name;
     let value = event.target.value;
 
-    setuser({ ...user, [username]: value });
+    setuser({ ...user, [name]: value });
   };
 
   //handle Submitities
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { username, email, password } = user;
-    try {
-      //Using Proxy instead of the deafult port 3000 to access the API hehe
 
-      const res = await fetch(
-        "/https://heroku-lama-api.herokuapp.com/api/user/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            email,
-            password,
-          }),
-        }
-      );
-      if (res.status === 400 || !res) {
-        window.alert("Email already in use!");
+    //Using Proxy instead of the deafult port 3000 to access the API hehe
+
+    const res = await fetch(
+      "https://heroku-lama-api.herokuapp.com/api/user/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
       }
-      if (res.status === 418 || !res) {
-        window.alert("Username already in use!");
-      } else {
-        window.alert("Registered Successfully");
-        setClick(!click);
-      }
-    } catch (error) {
-      console.log(error);
+    ).then((res) => {
+      return res.json();
+    });
+    if (res.error !== null || !res) {
+      window.alert(res.error);
+    } else {
+      window.alert("Registered Successfully");
+      setClick(!click);
     }
   };
 
@@ -313,39 +309,33 @@ export const LogFormComponent = () => {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const { username, password } = loginUser;
+    //Using Proxy instead of the deafult port 3000 to access the API hehe
 
-    try {
-      //Using Proxy instead of the deafult port 3000 to access the API hehe
-
-      const res = await fetch(
-        "https://heroku-lama-api.herokuapp.com/api/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        }
-      ).then((res) => {
-        return res.json();
-      });
-      if (res.status === 400 || !res) {
-        window.alert("Wrong username or password");
-      } else {
-        setUserAuth(username);
-        localStorage.setItem("username", username);
-        const token = res.data.token;
-        sessionStorage.setItem("authtoken", token);
-        console.log(userAuth);
-        window.alert("Logged In Successfully");
-
-        // window.location.reload();
+    const res = await fetch(
+      "https://heroku-lama-api.herokuapp.com/api/user/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       }
-    } catch (error) {
-      console.log(error);
+    ).then((res) => {
+      return res.json();
+    });
+    if (res.error !== null || !res) {
+      window.alert(res.error);
+    } else {
+      setUserAuth(username);
+      localStorage.setItem("username", username);
+      const token = res.data.token;
+      sessionStorage.setItem("authtoken", token);
+      window.alert("Logged In Successfully");
+
+      // window.location.reload();
     }
   };
 
@@ -355,7 +345,11 @@ export const LogFormComponent = () => {
     <>
       {" "}
       <BackgroundBox clicked={click}>
-        <ButtonAnimate clicked={click} onClick={handleClick}></ButtonAnimate>
+        <ButtonAnimate
+          aria-label="spinning lama"
+          clicked={click}
+          onClick={handleClick}
+        ></ButtonAnimate>
 
         <Form className="signin" onSubmit={handleLoginSubmit} method="POST">
           <Title>Log In</Title>
@@ -365,6 +359,7 @@ export const LogFormComponent = () => {
             name="username"
             value={loginUser.username}
             onChange={handleLoginChange}
+            data-testid="login-username-input"
           />
           <Input
             type="password"
@@ -372,6 +367,7 @@ export const LogFormComponent = () => {
             name="password"
             value={loginUser.password}
             onChange={handleLoginChange}
+            data-testid="login-password-input"
           />
           <Button type="submit" value="login">
             Log In
@@ -386,6 +382,7 @@ export const LogFormComponent = () => {
             name="username"
             value={user.username}
             onChange={handleInput}
+            data-testid="signup-username-input"
           />
 
           <Input
@@ -394,6 +391,7 @@ export const LogFormComponent = () => {
             name="email"
             value={user.email}
             onChange={handleInput}
+            data-testid="signup-email-input"
           />
           <Input
             type="password"
@@ -401,10 +399,8 @@ export const LogFormComponent = () => {
             name="password"
             value={user.password}
             onChange={handleInput}
+            data-testid="signup-password-input"
           />
-          <Link href="#" onClick={handleClick}>
-            Already have an Account?
-          </Link>
           <Button type="submit" value="login">
             Sign Up
           </Button>
@@ -412,7 +408,7 @@ export const LogFormComponent = () => {
 
         <Text className="text1" clicked={click}>
           <h1 style={{ fontSize: 32 }}>Welcome!</h1>
-          Don't have an account?
+          Don't have a LaMa account?
           <br />
           <span style={{ fontSize: 32 }} className="attention">
             Click on LaMa

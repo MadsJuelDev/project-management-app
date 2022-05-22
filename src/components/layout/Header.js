@@ -40,7 +40,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
               className="settings__darkmode"
               title="Darkmode? (Batman)"
             >
-              <GiBatMask />
+              <GiBatMask data-testid="batman-svg" />
             </li>
             <li
               onClick={() => onLogout()}
@@ -48,7 +48,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
               style={{ marginLeft: "15px" }}
               title="Logout"
             >
-              <RiLogoutBoxRFill />
+              <RiLogoutBoxRFill data-testid="logout-svg" />
             </li>
           </ul>
         </div>
