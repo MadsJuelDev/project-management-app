@@ -115,7 +115,7 @@ export const AddTask = ({
             onClick={() =>
               showQuickAddTask
                 ? addTask() && setShowQuickAddTask(false)
-                : addTask(setStatus("To Do"))
+                : addTask()
             }
           >
             Add Task

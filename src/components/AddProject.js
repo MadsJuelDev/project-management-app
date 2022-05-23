@@ -1,4 +1,3 @@
-// import { firebase } from "../firebase";
 import { generatePushId } from "../helpers";
 import { useState, useEffect } from "react";
 import { useProjects } from "../hooks";
