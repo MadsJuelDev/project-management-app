@@ -15,10 +15,10 @@ afterEach(cleanup);
 // Therefor Not All components can be queried in a functional manner.
 
 test("Render Login and Signup Form Component", async () => {
-  //Render the comenent with custom Renderer with context providers
+  //Render the component with custom Renderer with context providers
   render(<LogFormComponent />);
 
-  //define a Mock implemntation of windows alert function
+  //define a Mock implementation of windows alert function and spy if it exists
   window.alert = jest.spyOn(window, "alert").mockImplementation(() => {});
 
   // spy on the console.log
@@ -55,7 +55,7 @@ test("Render Login and Signup Form Component", async () => {
   // click login button
   userEvent.click(screen.getByRole("button", { name: /Log in/i }));
 
-  // wait for a function that console logges with "logged In"
+  // wait for a function that console logs with "logged In"
   await waitFor(() => console.log("Logged In"));
   expect(logSpy).toHaveBeenCalledWith("Logged In");
 

@@ -16,10 +16,10 @@ test("Render the AddCollab component", () => {
     { collabIdThree },
     { collabIdFour },
   ];
-  // Render the checkbox Component with regular renderer
+  // Render the AddCollab Component with custom renderer
   render(<AddCollab collab={collab} />);
 
-  //Query The header div and ensure that an element is inside.
+  //Query The AddCollab div and ensure that an element is inside.
   expect(screen.queryByTestId("add-collab-comp")).not.toBeEmptyDOMElement();
 
   // Testing All 4 collab lists are empty and have correct attributes:

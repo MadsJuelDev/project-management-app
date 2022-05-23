@@ -6,15 +6,13 @@ beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 test("Render the ProjectOverlay component", () => {
   render(<ProjectOverlay />);
 
-  //Query The IndividualCollabProject holder span and ensure that it is set to null.
+  //Query The ProjectOverlay holder div and ensure that it is defined in the HTML.
   expect(screen.queryByTestId("project-overlay-holder")).toBeDefined();
 });
 
 test("Query Important elements", () => {
   render(<ProjectOverlay />);
 
-  //Query important elements for this component to function:
+  //Query important elements and expect it to not be rendered.
   expect(screen.queryByTestId("project-overlay-action")).toBe(null);
 });
-
-test("Query Important elements", () => {});

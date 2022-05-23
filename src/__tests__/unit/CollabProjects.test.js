@@ -4,7 +4,6 @@ import { CollabProjects } from "../../components/CollabProjects";
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 
 test("Render the CollabProjects component", () => {
-  // Arrange Props for Ren
   // Render the CollabProjects Component with regular renderer
   render(<CollabProjects />);
 

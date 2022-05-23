@@ -3,12 +3,11 @@ import { AddTask } from "../../components/AddTask";
 
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 
-test("Render the AddCollab component", () => {
-  // Arrange Props for Ren
-  // Render the checkbox Component with regular renderer
+test("Render the AddTask component", () => {
+  // Render the AddTask Component with custom renderer
   render(<AddTask />);
 
-  //Query The Add Project holder div and ensure that an element is inside.
+  //Query The AddTask holder div and ensure that an element is inside.
   expect(screen.queryByTestId("add-task-comp")).not.toBeEmptyDOMElement();
 });
 

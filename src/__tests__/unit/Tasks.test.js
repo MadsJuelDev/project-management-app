@@ -3,7 +3,7 @@ import { Tasks } from "../../components/Tasks";
 
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 
-test("Render the Task component", () => {
+test("Render the Tasks component", () => {
   const urgency = "";
   const isCollapsed = "";
   const collabIdThree = "";
@@ -18,7 +18,7 @@ test("Render the Task component", () => {
   // Render the Tasks Component with custom renderer
   render(<Tasks task={task} />);
 
-  //Query The Tasks holder span and ensure that it is set to null.
+  //Query the Tasks holder span by its id and ensure that it is not empty.
   expect(screen.queryByTestId("tasks")).not.toBeEmptyDOMElement();
 });
 

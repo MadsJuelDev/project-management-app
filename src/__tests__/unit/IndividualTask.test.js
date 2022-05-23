@@ -18,7 +18,7 @@ test("Render the IndividualTask component", () => {
   // Render the IndividualTask Component with custom renderer
   render(<IndividualTask task={task} />);
 
-  //Query The IndividualCollabProject holder span and ensure that it is set to null.
+  //Query The IndividualTask component holder li and ensure that it is not empty.
   expect(screen.queryByTestId("task-comp-li")).not.toBeEmptyDOMElement();
 });
 
@@ -34,7 +34,7 @@ test("Query Important elements", () => {
     { collabIdThree },
     { collabIdFour },
   ];
-  // Render the AddProject Component with custom renderer
+  // Render the IndividualTask Component with custom renderer
   render(<IndividualTask task={task} />);
 
   //Query important elements for this component to function:

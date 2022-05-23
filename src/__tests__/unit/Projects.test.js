@@ -4,7 +4,6 @@ import { Projects } from "../../components/Projects";
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 
 test("Render the Projects component", () => {
-  // Arrange Props for Ren
   // Render the Projects Component with custom renderer
   render(<Projects />);
 

@@ -1,11 +1,4 @@
-import userEvent from "@testing-library/user-event";
-import {
-  render,
-  cleanup,
-  screen,
-  fireEvent,
-  waitFor,
-} from "../../../test-utils";
+import { render, cleanup, screen, fireEvent } from "../../../test-utils";
 import { LogFormComponent } from "../../components/FormComponent";
 
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
@@ -15,7 +8,7 @@ afterEach(cleanup);
 // Therefor Not All components can be queried in a functional manner.
 
 test("Render the Login Component, and ensure the inputs work", async () => {
-  //Render the comenent with custom Renderer with context providers
+  //Render the component with custom Renderer with context providers
   render(<LogFormComponent />);
 
   // Expect there to be a Spinning Lama button in the Html Document
@@ -34,7 +27,7 @@ test("Render the Login Component, and ensure the inputs work", async () => {
   expect(screen.getByTestId("signup-email-input").value).toBe("");
   expect(screen.getByTestId("signup-password-input").value).toBe("");
 
-  // Add username and login login info by changing the value with fireEvent.change
+  // Add username and login info by changing the value with fireEvent.change
   fireEvent.change(screen.getByTestId("signup-username-input"), {
     target: { value: "1234abc" },
   });

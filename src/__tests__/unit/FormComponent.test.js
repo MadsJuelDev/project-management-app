@@ -1,19 +1,10 @@
-import userEvent from "@testing-library/user-event";
-import {
-  render,
-  cleanup,
-  screen,
-  fireEvent,
-  waitFor,
-} from "../../../test-utils";
+import { render, cleanup, screen } from "../../../test-utils";
 import { LogFormComponent } from "../../components/FormComponent";
 
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 
 // This compontent is UI rendered differently with styled compontents in the file.
 // Therefor Not All components can be queried in a functional manner.
-//
-//
 
 test("Render Login and Signup Form Component", () => {
   //Render the comenent with custom Renderer with context providers

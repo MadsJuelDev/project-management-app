@@ -1,15 +1,13 @@
-import { toBeVisible } from "@testing-library/jest-dom/dist/matchers";
-import userEvent from "@testing-library/user-event";
 import { render, cleanup, screen } from "../../../../test-utils";
 import { Content } from "../../../components/layout/Content";
 
 beforeEach(cleanup); // cleans the Dom ( from rendered components and inputs)
 
 test("Render The Content Component and ensure that the sidebar generic is present", async () => {
-  //Render the comenent with custom Renderer with context providers
+  //Render the content component with custom Renderer with context providers
   render(<Content />);
 
-  //Check if sidebar is Rendered with The content Component
+  //Check if sidebar is Rendered within The content Component
   expect(screen.getByTestId("sidebar")).toBeInTheDocument();
 
   //Checking for contents of sidebar
@@ -24,10 +22,10 @@ test("Render The Content Component and ensure that the sidebar generic is presen
 });
 
 test("Render The Component and ensure that the sidebar projects is present", async () => {
-  //Render the comenent with custom Renderer with context providers
+  //Render the content component with custom Renderer with context providers
   render(<Content />);
 
-  //Check if sidebar is Rendered with The content Component
+  //Check if sidebar is Rendered within The content Component
   expect(screen.getByTestId("sidebar")).toBeInTheDocument();
 
   // Projects ( a list of user Projects)  #1 <li>, #2 <h2>
@@ -37,11 +35,11 @@ test("Render The Component and ensure that the sidebar projects is present", asy
   expect(screen.findByText("heading", { name: /Projects/i })).toBeDefined();
 });
 
-test("Render The Login Component and ensure that the sidebar Collab projects is present", async () => {
-  //Render the comenent with custom Renderer with context providers
+test("Render The Content Component and ensure that the sidebar Collab projects is present", async () => {
+  //Render the content component with custom Renderer with context providers
   render(<Content />);
 
-  //Check if sidebar is Rendered with The content Component
+  //Check if sidebar is Rendered within The content Component
   expect(screen.getByTestId("sidebar")).toBeInTheDocument();
 
   // Collab Projects ( a list of user Collab Projects); #1 <li> #2 <h2>
@@ -54,11 +52,11 @@ test("Render The Login Component and ensure that the sidebar Collab projects is 
   ).toBeDefined();
 });
 
-test("Render The Login Component and ensure that the content is loading from Inbox", async () => {
-  //Render the comenent with custom Renderer with context providers
+test("Render The Content Component and ensure that the content is loading from Inbox", async () => {
+  //Render the content component with custom Renderer with context providers
   render(<Content />);
 
-  //Check if sidebar is Rendered with The content Component
+  //Check if sidebar is Rendered within The content Component
   expect(screen.getByTestId("sidebar")).toBeInTheDocument();
 
   //Content section with tasks
