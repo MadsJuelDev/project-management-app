@@ -11,7 +11,6 @@ export const IndividualProject = ({ project }) => {
 
   const deleteProject = async () => {
     let token = sessionStorage.getItem("authtoken");
-    console.log(token);
     await axios
       .delete(
         "https://heroku-lama-api.herokuapp.com/api/projects/" + project.id,

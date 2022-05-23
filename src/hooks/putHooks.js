@@ -53,9 +53,9 @@ export const updateTask = (id, task, description, urgency, status) => {
 };
 
 // Saves if a task is open or not for later use.
-export const updateCollapsed = (id) => {
+export const updateCollapsed = async (id) => {
   let token = sessionStorage.getItem("authtoken");
-  axios
+  await axios
     .put(
       "https://heroku-lama-api.herokuapp.com/api/tasks/collapse/" + id,
       { isCollapsed: false },

@@ -3,9 +3,8 @@ import { useState } from "react";
 import { moveTask, updateCollapsed, updateTask } from "../hooks";
 
 export const IndividualTask = (props) => {
-  // imported Props
-  const { status, task } = props;
-  // Creating and Setting State
+  const { task } = props;
+
   const [urgencyLevel, setUrgencyLevel] = useState(task.urgency);
   const [collapsed, setCollapsed] = useState(task.isCollapsed);
   const [formAction, setFormAction] = useState("");
