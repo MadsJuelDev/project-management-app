@@ -57,7 +57,7 @@ export const updateCollapsed = (id) => {
   let token = sessionStorage.getItem("authtoken");
   axios
     .put(
-      "https://heroku-lama-api.herokuapp.com/api/tasks/" + id,
+      "https://heroku-lama-api.herokuapp.com/api/tasks/collapse/" + id,
       { isCollapsed: false },
       {
         headers: { authtoken: `${token}` },
