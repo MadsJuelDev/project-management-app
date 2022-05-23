@@ -23,26 +23,26 @@ export const ProfileContent = () => {
         <div className="char-wrapper">
           <div className="char-holder">
             <img
-              src={require("../../assets/main_layer.png")}
+              src={require("../../../public/assets/main_layer.png")}
               alt="Template Body"
             />
             <img
-              src={require("../../assets/Hair/hair_one_white.png")}
+              src={require("../../../public/assets/hair_one_white.png")}
               alt="Hair"
             />
             <img
-              src={require("../../assets/Top/top_one_black.png")}
+              src={require("../../../public/assets/Top/top_one_black.png")}
               alt="Top"
             />
             <img
-              src={require("../../assets/Bottom/bottom_one_blue.png")}
+              src={require("../../../public/assets/Bottom/bottom_one_blue.png")}
               alt="Bottom"
             />
             <img
-              src={require("../../assets/Shoes/shoes_one_WHite.png")}
+              src={require("../../../public/assets/Shoes/shoes_one_WHite.png")}
               alt="Shoes"
             />
-            <img src={require("../../assets/ground.png")} alt="" />
+            <img src={require("../../../public/assets/ground.png")} alt="" />
           </div>
         </div>
         <hr className="char__hr" />
