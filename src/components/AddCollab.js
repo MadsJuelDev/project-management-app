@@ -17,7 +17,6 @@ export const AddCollab = ({ setShowCollabers, collab }) => {
         event.target.elements.collabIdThree.value,
         event.target.elements.collabIdFour.value
       );
-      console.log(event.target.elements.collabIdTwo.value);
       setShowCollabers(false);
     }
   }

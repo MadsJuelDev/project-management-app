@@ -29,19 +29,17 @@ export const Tasks = ({ status }) => {
     } catch (error) {
       projectName = "INBOX";
     }
-    // projectName = getTitle(projects.data, selectedProject)?.name;
   }
   if (collatedTasksExists(selectedProject) && selectedProject) {
     projectName = getCollatedTitle(collatedTasks, selectedProject).name;
   }
 
-  // const { projects } = useProjectsValue();
   const { data: tasks, isLoading } = useTasks(selectedProject, userAuth);
   const { data: allTasks } = useAllTasks(userAuth);
   const { data: nextSevenTasks } = useNextSevenTasks(userAuth);
   const { data: todayTasks } = useTodayTasks(userAuth);
-  // starting movable by status here
 
+  // starting movable by status here
   let tasksForStatus = tasks?.filter((task) => {
     return task.status === status;
   });

@@ -254,7 +254,7 @@ export const LogFormComponent = () => {
     password: "",
   });
 
-  //handle Inputes
+  //handle Inputs
   const handleInput = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -334,13 +334,9 @@ export const LogFormComponent = () => {
       const token = res.data.token;
       sessionStorage.setItem("authtoken", token);
       window.alert("Logged In Successfully");
-
-      // window.location.reload();
     }
   };
 
-  // const result = JSON.parse(sessionStorage.getItem("data"));
-  // console.log(result);
   return (
     <>
       {" "}
