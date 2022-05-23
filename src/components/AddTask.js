@@ -24,7 +24,9 @@ export const AddTask = ({
   const addTask = async () => {
     const projectId = project || selectedProject;
     let token = sessionStorage.getItem("authtoken");
-
+    if (status == null) {
+      status = "To Do";
+    }
     const res = await fetch("https://heroku-lama-api.herokuapp.com/api/tasks", {
       method: "POST",
       headers: {
@@ -113,7 +115,7 @@ export const AddTask = ({
             onClick={() =>
               showQuickAddTask
                 ? addTask() && setShowQuickAddTask(false)
-                : addTask()
+                : addTask(setStatus("To Do"))
             }
           >
             Add Task
