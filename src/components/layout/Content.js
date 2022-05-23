@@ -43,7 +43,6 @@ export const Content = () => {
   };
 
   useEffect(() => {
-    console.log("using effect");
     setUserAuth(savedUser);
   }, []);
 

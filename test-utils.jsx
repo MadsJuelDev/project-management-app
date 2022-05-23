@@ -4,6 +4,8 @@ import { UserContextProvider, SelectedProjectProvider } from "./src/context";
 import {} from "@testing-library/user-event";
 import { QueryClientProvider, QueryClient } from "react-query";
 
+//Custom Testing utilities and renderer for import when testing.
+
 const queryClient = new QueryClient();
 
 const AllTheProviders = ({ children }) => {

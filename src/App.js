@@ -6,6 +6,7 @@ import { useState } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { FullPageContent } from "./components/layout/FullPageContent";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProfileContent } from "./components/layout/ProfileContent";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ export const App = ({ darkModeDefault = false }) => {
                 />
               )}
               {!userAuth && <Route path="/" element={<FullPageContent />} />}
+              {/* {!userAuth && <Route path="/" element={<ProfileContent />} />} */}
             </Routes>
           </main>
         </BrowserRouter>

@@ -15,7 +15,7 @@ export const TaskDate = ({ setTaskDate, showTaskDate, setShowTaskDate }) =>
           <span>
             <FaSpaceShuttle />
           </span>
-          <span>Today</span>
+          <span>&nbsp; Today</span>
         </li>
         <li
           onClick={() => {
@@ -27,7 +27,7 @@ export const TaskDate = ({ setTaskDate, showTaskDate, setShowTaskDate }) =>
           <span>
             <FaSun />
           </span>
-          <span>Tomorrow</span>
+          <span>&nbsp; Tomorrow</span>
         </li>
         <li
           onClick={() => {
@@ -39,7 +39,7 @@ export const TaskDate = ({ setTaskDate, showTaskDate, setShowTaskDate }) =>
           <span>
             <FaRegPaperPlane />
           </span>
-          <span>Next Week</span>
+          <span>&nbsp; Next Week</span>
         </li>
       </ul>
     </div>

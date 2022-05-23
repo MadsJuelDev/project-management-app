@@ -7,7 +7,7 @@ import { useUserContextValue } from "../../context";
 export const Header = ({ darkMode, setDarkMode }) => {
   const [shouldShowMain, setShouldShowMain] = useState(false);
   const [showQuickAddTask, setShowQuickAddTask] = useState(false);
-  const { setUserAuth } = useUserContextValue();
+  const { userAuth, setUserAuth } = useUserContextValue();
 
   const onLogout = () => {
     sessionStorage.clear();
@@ -23,17 +23,19 @@ export const Header = ({ darkMode, setDarkMode }) => {
         </div>
         <div className="settings">
           <ul>
-            <li
-              onClick={() => {
-                setShowQuickAddTask(true);
-                setShouldShowMain(true);
-              }}
-              data-testid="quick-add-task-action"
-              className="settings__add"
-              title="Quick Add Task"
-            >
-              +
-            </li>
+            {userAuth && (
+              <li
+                onClick={() => {
+                  setShowQuickAddTask(true);
+                  setShouldShowMain(true);
+                }}
+                data-testid="quick-add-task-action"
+                className="settings__add"
+                title="Quick Add Task"
+              >
+                +
+              </li>
+            )}
             <li
               onClick={() => setDarkMode(!darkMode)}
               data-testid="dark-mode-action"

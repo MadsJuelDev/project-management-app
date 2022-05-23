@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// moves tasks Up or Down from To-do, Doing, Done.
 export const moveTask = (id, newStatus) => {
   let token = sessionStorage.getItem("authtoken");
   axios
@@ -22,6 +23,7 @@ export const moveTask = (id, newStatus) => {
     });
 };
 
+// Updates a task with new content.
 export const updateTask = (id, task, description, urgency, status) => {
   let token = sessionStorage.getItem("authtoken");
   axios
@@ -50,6 +52,7 @@ export const updateTask = (id, task, description, urgency, status) => {
     });
 };
 
+// Saves if a task is open or not for later use.
 export const updateCollapsed = (id) => {
   let token = sessionStorage.getItem("authtoken");
   axios
@@ -72,6 +75,7 @@ export const updateCollapsed = (id) => {
     });
 };
 
+// updates all collaberators associated with a project.
 export const updateProjectCollabList = (
   id,
   collabIdOne,

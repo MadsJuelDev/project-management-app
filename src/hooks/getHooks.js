@@ -43,7 +43,7 @@ const getTodaysTasks = async (userAuth) => {
   return data;
 };
 
-// React-query componentes that can be re-used in though out the Tree
+// Custom React-query hooks that can be re-used throughout the application tree
 export const useTasks = (selectedProject, userAuth) => {
   return useQuery(
     ["fetchProjectTasksAPI", selectedProject, userAuth],

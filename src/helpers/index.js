@@ -1,5 +1,6 @@
 import { collatedTasks } from "../constants";
 
+// For getting and comparing Project Titles.
 export const getTitle = (projects, projectId) =>
   projects.find((project) => project.projectId === projectId);
 
@@ -9,6 +10,7 @@ export const getCollatedTitle = (projects, key) =>
 export const collatedTasksExists = (selectedProject) =>
   collatedTasks.find((task) => task.key === selectedProject);
 
+// used for generating a unique project id ( copied from stack-overflow )
 export const generatePushId = (() => {
   const PUSH_CHARS =
     "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
