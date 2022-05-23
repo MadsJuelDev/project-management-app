@@ -10,29 +10,29 @@
 
 # Testing
 
-**Test-utils.jsx:**
-Imports all providers and ensures they are usable.
-These are then added into the custom renderer, which is used instead of the regular Jest renderer.
-This file also adds all companion packages from the testing library, to be used in a single import.
-We have also done frontend testing with Jest and react-testing-library. Unit test of all components below, and two integration tests for login/register.
+> **Test-utils.jsx:**
+> Imports all providers and ensures they are usable.
+> These are then added into the custom renderer, which is used instead of the regular Jest renderer.
+> This file also adds all companion packages from the testing library, to be used in a single import.
+> We have also done frontend testing with Jest and react-testing-library. Unit test of all components >below, and two integration tests for login/register.
 
 # Middleware
 
-Http-proxy-middleware - setupProxy.js:
-This file ensures that if you write the path /lama it will be automatically targeted to heroku endpoint.
-It also allows multiple endpoints for future api’s.
+> **Http-proxy-middleware - setupProxy.js:**
+> This file ensures that if you write the path /lama it will be automatically targeted to heroku >endpoint.
+> It also allows multiple endpoints for future api’s.
 
-**Axios:**
-a promised based HTTP client
+> **Axios:**
+> a promised based HTTP client
 
-**ReactQuery:**
-configurable observer that can be used for data fetching and state management.
+> **ReactQuery:**
+> configurable observer that can be used for data fetching and state management.
 
-**Moment:**
-Used for date-management and formatting.
+> **Moment:**
+> Used for date-management and formatting.
 
-**React-Router-Dom:**
-Imported to enable easier routing functionality in React applications.
+> **React-Router-Dom:**
+> Imported to enable easier routing functionality in React applications.
 
 # Application
 
