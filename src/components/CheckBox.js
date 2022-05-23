@@ -1,10 +1,9 @@
 export const CheckBox = ({ id }) => {
   const archiveTask = async () => {
     let token = sessionStorage.getItem("authtoken");
-    console.log(token);
 
     const res = await fetch(
-      "https://heroku-lama-api.herokuapp.com/api/tasks/" + id,
+      "https://heroku-lama-api.herokuapp.com/api/tasks/archive/" + id,
       {
         method: "PUT",
         headers: {

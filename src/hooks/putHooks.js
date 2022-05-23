@@ -5,7 +5,7 @@ export const moveTask = (id, newStatus) => {
   let token = sessionStorage.getItem("authtoken");
   axios
     .put(
-      "https://heroku-lama-api.herokuapp.com/api/tasks/" + id,
+      "https://heroku-lama-api.herokuapp.com/api/tasks/move/" + id,
       { status: newStatus },
       {
         headers: { authtoken: `${token}` },

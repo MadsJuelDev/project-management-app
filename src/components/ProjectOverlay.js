@@ -9,7 +9,6 @@ export const ProjectOverlay = ({
 }) => {
   const { userAuth } = useUserContextValue();
   const { data: projects } = useProjects(userAuth);
-  console.log({ projects });
 
   return (
     projects &&
